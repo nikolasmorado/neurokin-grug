@@ -18,5 +18,6 @@ func (s *Server) Start() error {
 
   router := chi.NewMux();
 
-  listenAddr :
+  router.Get("/api/health",
+
 }
