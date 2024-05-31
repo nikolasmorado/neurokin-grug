@@ -1,7 +1,10 @@
 package api
 
 import (
+	"net/http"
+
 	"github.com/go-chi/chi/v5"
+	"github.com/nikolasmorado/neurokin-grug/handlers"
 )
 
 type Server struct {
@@ -16,8 +19,9 @@ func NewServer(listenAddr string) *Server {
 
 func (s *Server) Start() error {
 
-  router := chi.NewMux();
+	router := chi.NewMux()
 
-  router.Get("/api/health",
+	router.Get("/api/health", handlers.Make(handlers.HandleHealth))
 
+  return http.ListenAndServe(s.listenAddr, router)
 }
