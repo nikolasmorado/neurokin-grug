@@ -4,7 +4,7 @@ import (
 	"log/slog"
 	"net/http"
 
-  t "github.com/nikolasmorado/neurokin-grug/types"
+  t "neurokin/types"
 	"github.com/a-h/templ"
 )
 

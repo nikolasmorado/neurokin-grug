@@ -1,7 +1,7 @@
 package handlers
 
 import (
-	u "github.com/nikolasmorado/neurokin-grug/util"
+  u "neurokin/util"
 	"net/http"
 )
 

@@ -6,20 +6,23 @@ import (
 	"os"
 
 	"github.com/joho/godotenv"
-	"github.com/nikolasmorado/neurokin-grug/api"
+	a "neurokin/api" 
 )
 
 func main() {
 
-  if err := godotenv.Load(); err != nil {
-    log.Fatal("Error loading .env file")
-  }
+	if err := godotenv.Load(); err != nil {
+		log.Fatal("Error loading .env file")
+	}
 
-  listenAddr := os.Getenv("LISTEN_ADDR")
+	listenAddr := os.Getenv("LISTEN_ADDR")
 
-  slog.Info("HTTP server started", "listenAddr", listenAddr)
+	slog.Info("HTTP server started", "listenAddr", listenAddr)
 
-  api := api.NewServer(listenAddr)
+	api := a.NewServer(
+		listenAddr,
+		Public(),
+	)
 
-  api.Start()
+	api.Start()
 }
