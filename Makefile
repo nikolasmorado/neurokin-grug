@@ -1,8 +1,14 @@
 build:
-	go build -o bin/neurokin-grug ./main.go
+	@go build -o bin/app .
 
 run: build
-	./bin/neurokin-grug
+	@./bin/app
+
+css:
+	tailwindcss -i views/css/app.css -o public/styles.css --watch
+
+clean:
+	rm -rf bin/*
 
 test:
 	go test -v ./...
