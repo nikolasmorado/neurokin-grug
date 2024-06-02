@@ -29,5 +29,7 @@ func (s *Server) Start() error {
 
   router.Get("/", h.Make(h.HandleHome))
 
+  router.Post("/waitlist", h.Make(h.HandlePostWaitlist))
+
   return http.ListenAndServe(s.listenAddr, router)
 }
