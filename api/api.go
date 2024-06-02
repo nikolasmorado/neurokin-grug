@@ -5,17 +5,21 @@ import (
 
 	"github.com/go-chi/chi/v5"
 	h "neurokin/handlers"
+	t "neurokin/types"
+	u "neurokin/util"
 )
 
 type Server struct {
 	listenAddr string
-  public http.Handler
+	store      t.Storage
+	public     http.Handler
 }
 
-func NewServer(listenAddr string, public http.Handler) *Server {
+func NewServer(listenAddr string, store t.Storage, public http.Handler) *Server {
 	return &Server{
 		listenAddr: listenAddr,
-    public: public,
+		store:      store,
+		public:     public,
 	}
 }
 
@@ -23,13 +27,15 @@ func (s *Server) Start() error {
 
 	router := chi.NewMux()
 
-  router.Handle("/*", s.public)
+	deps := u.NewHandlerDependencies(s.store)
+
+	router.Handle("/*", s.public)
 
 	router.Get("/api/health", h.Make(h.HandleHealth))
 
-  router.Get("/", h.Make(h.HandleHome))
+	router.Get("/", h.Make(h.HandleHome))
 
-  router.Post("/waitlist", h.Make(h.HandlePostWaitlist))
+	router.Post("/waitlist", h.Make(h.HandleWaitlist(deps)))
 
-  return http.ListenAndServe(s.listenAddr, router)
+	return http.ListenAndServe(s.listenAddr, router)
 }
