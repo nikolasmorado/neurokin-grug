@@ -3,7 +3,7 @@ tmp_dir = "tmp"
 
 [build]
   bin = "./tmp/main"
-  cmd = "go build -tags dev -o ./tmp/main ."
+  cmd = "~/go/bin/templ generate && go build -tags dev -o ./tmp/main ."
 
   delay = 20
   exclude_dir = ["assets", "tmp", "vendor"]
@@ -30,4 +30,4 @@ tmp_dir = "tmp"
   time = false
 
 [misc]
-  clean_on_exit = false
+  clean_on_exit = true 
