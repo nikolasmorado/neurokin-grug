@@ -7,11 +7,11 @@ import (
 	"google.golang.org/api/option"
 )
 
-func InitFirebase(f string) (s *Store, err error) {
+func InitFirebase(f string, i string) (s *Store, err error) {
 	ctx := context.Background()
 	opt := option.WithCredentialsFile(f)
 
-	client, err := firestore.NewClient(ctx, "neurokin-df808", opt)
+	client, err := firestore.NewClient(ctx, i, opt)
 
 	if err != nil {
 		return nil, err

@@ -17,7 +17,9 @@ func main() {
 		log.Fatal("Error loading .env file")
 	}
 
-  store, err := store.InitFirebase("./ServiceAccount.json")
+  id := os.Getenv("FIREBASE_PROJECT_ID")
+
+  store, err := store.InitFirebase("./ServiceAccount.json", id)
 
   if err != nil {
     log.Fatal("Error initializing Firebase")

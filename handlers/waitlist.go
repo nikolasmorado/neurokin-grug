@@ -17,18 +17,12 @@ func HandleWaitlist(deps *u.HandlerDependencies) t.HTTPHandler {
 
 		email := r.Form.Get("email")
 
-    fmt.Println("email: ", email)
+		if !u.ValidateEmail(email) {
+			return fmt.Errorf("Invalid email: %s", email)
+		}
 
-    s.CreateWaitlist(email)
+		s.CreateWaitlist(email)
 
 		return Render(w, r, waitlist.Index())
 	}
-}
-
-func HandlePostWaitlist(w http.ResponseWriter, r *http.Request, s t.Storage) error {
-	if err := r.ParseForm(); err != nil {
-		return err
-	}
-
-	return Render(w, r, waitlist.Index())
 }
