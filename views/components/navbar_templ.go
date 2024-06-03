@@ -23,7 +23,7 @@ func Navbar() templ.Component {
 			templ_7745c5c3_Var1 = templ.NopComponent
 		}
 		ctx = templ.ClearChildren(ctx)
-		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<nav class=\"w-full flex justify-between items-center px-9 py-5 border-pink-700 border-b-[10px]\"><img src=\"/public/images/text_logo.png\" alt=\"Text logo - Neurokin\" width=\"170\" height=\"70\"><div class=\"text-pink-700 text-lg gap-x-11 flex items-center\"><a href=\"/about\">About</a> <a href=\"/pricing\">Pricing</a> <a href=\"/login\">Login</a> <a href=\"/signup\" class=\"bg-pink-700 text-white px-4 py-2 rounded-lg\">Sign Up</a></div></nav>")
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<nav class=\"w-full flex justify-between items-center px-9 py-0 sm:py-5 border-pink-700 border-b-[3px] sm:border-b-[10px]\"><img src=\"/public/images/text_logo.png\" alt=\"Text logo - Neurokin\" width=\"170\" height=\"70\" class=\"mt-4 sm:mt-0\"><div class=\"text-pink-700 text-lg gap-x-11 sm:flex items-center hidden\"><a href=\"/about\">About</a> <a href=\"/pricing\">Pricing</a> <a href=\"/login\">Login</a> <a href=\"/signup\" class=\"bg-pink-700 text-white px-4 py-2 rounded-lg\">Sign Up</a></div><div class=\"sm:hidden\"><button><div class=\"flex flex-col items-center\"><div class=\"w-6 h-[2px] bg-black mb-1\"></div><div class=\"w-6 h-[2px] bg-black mb-1\"></div><div class=\"w-6 h-[2px] bg-black mb-1\"></div></div></button></div></nav>")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}

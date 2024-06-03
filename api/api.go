@@ -24,7 +24,6 @@ func NewServer(listenAddr string, store t.Storage, public http.Handler) *Server 
 }
 
 func (s *Server) Start() error {
-
 	router := chi.NewMux()
 
 	deps := u.NewHandlerDependencies(s.store)
@@ -34,8 +33,10 @@ func (s *Server) Start() error {
 	router.Get("/api/health", h.Make(h.HandleHealth))
 
 	router.Get("/", h.Make(h.HandleHome))
-
 	router.Post("/waitlist", h.Make(h.HandleWaitlist(deps)))
+
+	router.Get("/login", h.Make(h.HandleLogin))
+	router.Get("/signup", h.Make(h.HandleSignup))
 
 	return http.ListenAndServe(s.listenAddr, router)
 }
