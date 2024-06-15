@@ -35,8 +35,8 @@ func (s *Server) Start() error {
 	router.Get("/", h.Make(h.HandleHome))
 	router.Post("/waitlist", h.Make(h.HandleWaitlist(deps)))
 
-	router.Get("/login", h.Make(h.HandleLogin))
-	router.Get("/signup", h.Make(h.HandleSignup))
+	router.Get("/login", h.Make(h.HandleLogin(deps)))
+	router.Get("/signup", h.Make(h.HandleSignup(deps)))
 
 	return http.ListenAndServe(s.listenAddr, router)
 }
