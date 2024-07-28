@@ -3,6 +3,7 @@ package handlers
 import (
 	"net/http"
 	"neurokin/views/auth"
+	"strings"
 
 	t "neurokin/types"
 	u "neurokin/util"
@@ -39,8 +40,31 @@ func HandleSignup(deps *u.HandlerDependencies) t.HTTPHandler {
 }
 
 func login(w http.ResponseWriter, r *http.Request, s t.Storage) error {
+	email := r.FormValue("email")
+	password := r.FormValue("password")
 
-	return u.WriteJSON(w, http.StatusOK, map[string]string{"message": "login"})
+	if !u.ValidateEmail(email) {
+		return u.WriteJSON(w, http.StatusBadRequest, map[string]string{"error": "Please enter a valid email address."})
+	}
+
+	token, err := s.Login(email, password)
+	if err != nil {
+		if strings.Contains(err.Error(), "EMAIL_NOT_FOUND") {
+			return u.WriteJSON(w, http.StatusBadRequest, map[string]string{"error": "Email not found."})
+		}
+		return u.WriteJSON(w, http.StatusBadRequest, map[string]string{"error": "Invalid email or password."})
+	}
+
+	// Set the token in a cookie
+	http.SetCookie(w, &http.Cookie{
+		Name:     "auth_token",
+		Value:    token,
+		Path:     "/",
+		HttpOnly: true,
+	})
+
+  w.WriteHeader(http.StatusOK)
+  return nil
 }
 
 func register(w http.ResponseWriter, r *http.Request, s t.Storage) error {
@@ -63,6 +87,9 @@ func register(w http.ResponseWriter, r *http.Request, s t.Storage) error {
 	acc.Email = email
 
 	if err := s.CreateAccount(acc, password); err != nil {
+		if strings.Contains(err.Error(), "EMAIL_EXISTS") {
+			return u.WriteJSON(w, http.StatusBadRequest, map[string]string{"error": "Email already exists."})
+		}
 		return err
 	}
 

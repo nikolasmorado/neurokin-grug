@@ -1,59 +1,91 @@
 package auth
 
 import (
-"neurokin/views/layouts"
-"neurokin/views/shared"
+	"neurokin/views/layouts"
+	"neurokin/views/shared"
 )
 
 templ Login() {
-@layouts.Base() {
-<div
-  class="container w-full flex flex-col lg:flex-row items-center justify-center pt-20 lg:gap-x-20 mx-auto">
-  <div class="flex flex-col bg-green-500 p-[1.5px] lg:p-[5px] rounded-[10px] lg:rounded-[16px] w-[90%] lg:w-[40%]">
-    <div class="bg-green-500 flex gap-x-[4px] lg:gap-x-[6px] p-[6px] lg:p-2.5 rounded-t-[10px] lg:rounded-t-[16px]">
-      <div class="bg-white rounded-full w-[9px] h-[9px] lg:w-[12px] lg:h-[12px]"></div>
-      <div class="bg-white rounded-full w-[9px] h-[9px] lg:w-[12px] lg:h-[12px]"></div>
-      <div class="bg-white rounded-full w-[9px] h-[9px] lg:w-[12px] lg:h-[12px]"></div>
-    </div>
-    <div class="bg-white rounded-b-[10px] lg:rounded-b-[16px] p-6 ">
-      <h1 class="text-4xl mb-4 lg:mb-12">
-        Welcome back!
-      </h1>
-      <form action="/login" method="post" class="flex flex-col items-center w-full">
-        @shared.Input("email", "email", "Email", "true")
-        <div class="h-6 w-full"></div>
-        @shared.Input("password", "password", "Password", "true")
-        <div class="h-3 w-full"></div>
-        <a href="/forgot-password" class="text-black opacity-50 underline w-full">Forgot password?</a>
-        <button type="submit"
-          class="w-full lg:w-1/2 bg-pink-500 hover:bg-pink-700 transition-all text-white font-bold py-2 px-4 rounded-[8px] mt-8 focus:outline-none focus:shadow-outline">
-          Login
-        </button>
-        <p class="text-center mt-4 mb-4 opacity-50">Or, for passwordless login</p>
-        <button
-          class="w-full lg:w-1/2 transition-all hover:scale-105   text-black py-2 px-4 border-black border-solid border rounded-[8px] focus:outline-none focus:shadow-outline">
-          Sign in with Google
-        </button>
-      </form>
-    </div>
-  </div>
-  <div class="flex flex-col items-center w-[90%] lg:w-auto">
-    <image src="/public/images/girl-yellow.png" class="hidden lg:block w-[32vw] lg:max-w-[600px] mt-8"></image>
-    <div
-      class="flex flex-col bg-green-500 p-[1.5px] lg:p-[5px] rounded-[10px] lg:rounded-[16px] w-full lg:w-fit mt-[14px]">
-      <div class="bg-green-500 flex gap-x-[4px] lg:gap-x-[6px] p-[6px] lg:p-2.5 rounded-t-[10px] lg:rounded-t-[16px]">
-        <div class="bg-white rounded-full w-[9px] h-[9px] lg:w-[12px] lg:h-[12px]"></div>
-        <div class="bg-white rounded-full w-[9px] h-[9px] lg:w-[12px] lg:h-[12px]"></div>
-        <div class="bg-white rounded-full w-[9px] h-[9px] lg:w-[12px] lg:h-[12px]"></div>
-      </div>
-      <div class="bg-white rounded-b-[10px] lg:rounded-b-[16px] p-6 ">
-        <div
-          class="w-full lg:w-fit bg-pink-500 hover:bg-pink-700 transition-all text-white font-bold py-2 px-4 rounded-[8px] focus:outline-none focus:shadow-outline flex items-center justify-center">
-          <a href="/signup">Switch to Sign up</a>
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
-}
+	@layouts.Base() {
+		<div class="min-h-full lg:flex-1 lg:flex lg:items-center lg:justify-center">
+			<div
+				class="container w-full flex flex-col lg:flex-row items-center justify-center py-10 px-2 lg:p-0 lg:gap-x-20 mx-auto"
+			>
+				<div class="flex flex-col bg-green-500 p-[1.5px] lg:p-[5px] rounded-[10px] lg:rounded-[16px] w-[90%] lg:w-[40%]">
+					<div class="bg-green-500 flex gap-x-[4px] lg:gap-x-[6px] p-[6px] lg:p-2.5 rounded-t-[10px] lg:rounded-t-[16px]">
+						<div class="bg-white rounded-full w-[9px] h-[9px] lg:w-[12px] lg:h-[12px]"></div>
+						<div class="bg-white rounded-full w-[9px] h-[9px] lg:w-[12px] lg:h-[12px]"></div>
+						<div class="bg-white rounded-full w-[9px] h-[9px] lg:w-[12px] lg:h-[12px]"></div>
+					</div>
+					<div class="bg-white rounded-b-[10px] lg:rounded-b-[16px] p-6 ">
+						<h1 class="text-4xl mb-4 lg:mb-12">
+							Welcome back!
+						</h1>
+						<form
+							id="login-form"
+							hx-post="/login"
+							enctype="multipart/form-data"
+							hx-target="#error-message"
+							hx-swap="innerHTML"
+							hx-on="htmx:afterRequest"
+							class="flex flex-col items-center w-full"
+						>
+							@shared.Input("email", "email", "Email", "true")
+							<div class="h-6 w-full"></div>
+							@shared.Input("password", "password", "Password", "true")
+							<div class="h-3 w-full"></div>
+							<a href="/forgot-password" class="text-black opacity-50 underline w-full">Forgot password?</a>
+							<div id="error-message" class="font-bold text-red-500 text-center"></div>
+							<div class="h-3 w-full"></div>
+							<button
+								type="submit"
+								class="w-full lg:w-1/2 bg-pink-500 hover:bg-pink-700 transition-all text-white font-bold py-2 px-4 rounded-[8px] mt-8 focus:outline-none focus:shadow-outline"
+							>
+								Login
+							</button>
+							<p class="text-center mt-4 mb-4 opacity-50">Or, for passwordless login</p>
+							<button
+								class="w-full lg:w-1/2 transition-all hover:scale-105 text-black py-2 px-4 border-black border-solid border rounded-[8px] focus:outline-none focus:shadow-outline"
+							>
+								Sign in with Google
+							</button>
+						</form>
+					</div>
+				</div>
+				<div class="flex flex-col items-center w-[90%] lg:w-auto">
+					<image src="/public/images/girl-yellow.png" class="hidden lg:block w-[32vw] lg:max-w-[600px] mt-8"></image>
+					<div
+						class="flex flex-col bg-green-500 p-[1.5px] lg:p-[5px] rounded-[10px] lg:rounded-[16px] w-full lg:w-fit mt-[14px]"
+					>
+						<div class="bg-green-500 flex gap-x-[4px] lg:gap-x-[6px] p-[6px] lg:p-2.5 rounded-t-[10px] lg:rounded-t-[16px]">
+							<div class="bg-white rounded-full w-[9px] h-[9px] lg:w-[12px] lg:h-[12px]"></div>
+							<div class="bg-white rounded-full w-[9px] h-[9px] lg:w-[12px] lg:h-[12px]"></div>
+							<div class="bg-white rounded-full w-[9px] h-[9px] lg:w-[12px] lg:h-[12px]"></div>
+						</div>
+						<div class="bg-white rounded-b-[10px] lg:rounded-b-[16px] p-6 ">
+							<div
+								class="w-full lg:w-fit bg-pink-500 hover:bg-pink-700 transition-all text-white font-bold py-2 px-4 rounded-[8px] focus:outline-none focus:shadow-outline flex items-center justify-center"
+							>
+								<a href="/signup">Switch to Sign up</a>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<script>
+  document.addEventListener("htmx:responseError", function (event) {
+    if (event.detail.xhr.status === 400) {
+      var errorMessage = JSON.parse(event.detail.xhr.responseText).error;
+      document.getElementById("error-message").innerText = errorMessage;
+    }
+  });
+
+  document.addEventListener("htmx:afterOnLoad", function (event) {
+    if (event.detail.xhr.status === 200) {
+      window.location.href = "/dashboard";
+    }
+  });
+</script>
+	}
 }

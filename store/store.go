@@ -55,17 +55,18 @@ func (s *Store) CreateWaitlist(email string) error {
 
 func (s *Store) Login(email, password string) (string, error) {
 	ctx := context.Background()
-
-	params := (&auth.UserToCreate{}).
-		Email(email).
-		Password(password)
-
-	u, err := s.auth.CreateUser(ctx, params)
+	u, err := s.auth.GetUserByEmail(ctx, email)
 	if err != nil {
 		return "", err
 	}
 
-	return u.UID, nil
+
+	token, err := s.auth.CustomToken(ctx, u.UID)
+	if err != nil {
+		return "", err
+	}
+
+	return token, nil
 }
 
 func (s *Store) CreateAccount(account *t.Account, password string) error {
