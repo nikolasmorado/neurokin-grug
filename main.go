@@ -23,7 +23,7 @@ func main() {
   store, err := store.InitSupabase(url, key)
 
   if err != nil {
-    log.Fatal("Error initializing Firebase")
+    log.Fatal("Error initializing Supabase")
   }
 
 	listenAddr := os.Getenv("LISTEN_ADDR")

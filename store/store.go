@@ -7,27 +7,39 @@ import (
 )
 
 func InitSupabase(u string, k string) (s *Store, err error) {
-  client, err := supabase.NewClient(u, k, nil) 
+	client, err := supabase.NewClient(u, k, nil)
 
-  if err != nil {
-    return nil, err
-  }
+	if err != nil {
+		return nil, err
+	}
 
-  return &Store{db: client}, nil
+	return &Store{db: client}, nil
 }
 
 type Store struct {
-	db   *supabase.Client
+	db *supabase.Client
 }
 
 func (s *Store) CreateWaitlist(email string) error {
-  return nil
+	_, _, err := s.db.From("waitlist").Insert(
+		[]map[string]interface{}{{"email": email}},
+		false,
+		"",
+		"representation",
+		"",
+	).Execute()
+
+	if err != nil {
+		return err
+	}
+
+	return nil
 }
 
 func (s *Store) Login(email, password string) (string, error) {
-  return "", nil
+	return "", nil
 }
 
 func (s *Store) CreateAccount(account *t.Account, password string) error {
-  return nil
+	return nil
 }
