@@ -38,8 +38,9 @@ func (s *Server) Start() error {
   router.HandleFunc("/login", h.Make(h.HandleLogin(deps)))
   router.HandleFunc("/signup", h.Make(h.HandleSignup(deps)))
 
-
   router.HandleFunc("/dashboard", h.Make(h.HandleDashboard))
+
+  router.HandleFunc("/quiz", h.Make(h.HandleQuiz))
 
 	return http.ListenAndServe(s.listenAddr, router)
 }
