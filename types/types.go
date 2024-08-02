@@ -2,15 +2,16 @@ package types
 
 import (
 	"net/http"
+
+	"github.com/google/uuid"
 )
 
 type Storage interface {
 	CreateWaitlist(email string) error
 
-  Login(email, password string) (string, error)
+	Login(email, password string) (string, error)
 
 	CreateAccount(account *Account, password string) error
-
 }
 
 type HTTPHandler func(w http.ResponseWriter, r *http.Request) error
@@ -26,7 +27,7 @@ type RegisterRequest struct {
 }
 
 type Account struct {
-	Id    string `json:"id"`
-	Email string `json:"email"`
+	Id    uuid.UUID `json:"id"`
+	Email string    `json:"email"`
 	// Phone     string `json:"phone"`
 }

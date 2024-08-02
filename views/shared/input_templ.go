@@ -23,7 +23,7 @@ func Input(i string, t string, l string, r string) templ.Component {
 			templ_7745c5c3_Var1 = templ.NopComponent
 		}
 		ctx = templ.ClearChildren(ctx)
-		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<div class=\"w-full\"><label for=\"")
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<div class=\"w-full \"><label for=\"")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
@@ -88,7 +88,7 @@ func Input(i string, t string, l string, r string) templ.Component {
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("\" class=\"mt-1 block w-full px-3 py-2 border border-black bg-pink-500 bg-opacity-[0.11]  rounded-md shadow-sm focus:outline-none sm:text-sm\" required=\"")
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("\" class=\"mt-1 block w-full px-3 py-2 border border-black bg-pink-500 bg-opacity-[0.11] rounded-md shadow-sm focus:outline-none sm:text-sm transition-all hover:shadow-lg hover:bg-opacity-[0.33] active:bg-opacity-[0.33] focus:bg-opacity-[0.33] \" required=\"")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}

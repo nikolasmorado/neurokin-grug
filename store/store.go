@@ -2,7 +2,7 @@ package store
 
 import (
 	"github.com/supabase-community/supabase-go"
-
+  sgtgt "github.com/supabase-community/gotrue-go/types"
 	t "neurokin/types"
 )
 
@@ -25,7 +25,7 @@ func (s *Store) CreateWaitlist(email string) error {
 		[]map[string]interface{}{{"email": email}},
 		false,
 		"",
-		"representation",
+		"minimal",
 		"",
 	).Execute()
 
@@ -37,9 +37,45 @@ func (s *Store) CreateWaitlist(email string) error {
 }
 
 func (s *Store) Login(email, password string) (string, error) {
-	return "", nil
+	res, err := s.db.Auth.SignInWithEmailPassword(email, password)
+
+	if err != nil {
+		return "", err
+	}
+
+	return res.AccessToken, nil
 }
 
 func (s *Store) CreateAccount(account *t.Account, password string) error {
+	req := sgtgt.SignupRequest{
+		Email:    account.Email,
+		Password: password,
+	}
+
+	res, err := s.db.Auth.Signup(req)
+
+	if err != nil {
+		return err
+	}
+
+	account.Id = res.User.ID
+
+	_, _, err = s.db.From("users").Insert(
+		[]map[string]interface{}{{
+			"id":    account.Id,
+			"email": account.Email,
+		}},
+		false,
+		"",
+		"minimal",
+		"",
+	).Execute()
+
+
+  if err != nil {
+    return err
+  }
+
 	return nil
+
 }
