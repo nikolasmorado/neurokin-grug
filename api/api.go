@@ -43,8 +43,6 @@ func (s *Server) Start() error {
 
 	router.HandleFunc("/verify", h.Make(h.HandleVerify))
 
-	router.HandleFunc("/quiz", h.Make(h.HandleQuiz))
-  //handle slugs to quiz
   router.HandleFunc("/quiz/{slug}", h.Make(h.HandleQuizSlug(deps)))
 
 	return http.ListenAndServe(s.listenAddr, router)

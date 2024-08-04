@@ -14,10 +14,10 @@ type Storage interface {
 	Login(email, password string) (string, error)
 	CreateAccount(account *Account, password string) error
 	GetAccountById(id uuid.UUID) (*Account, error)
-  GetAccountByEmail(email string) (*Account, error)
+	GetAccountByEmail(email string) (*Account, error)
 
-	CreateQuizAnswer(quizAnswer *QuizAnswer) error
-	GetQuizAnswer(quizSlug string, userId uuid.UUID) (*QuizAnswer, error)
+	CreateQuizAnswer(id, slug string) error
+	GetQuizAnswer(quizSlug string, id uuid.UUID) (*QuizAnswer, error)
 	UpdateQuizAnswer(quizAnswer *QuizAnswer) error
 }
 
@@ -48,17 +48,24 @@ type QuizQuestion struct {
 }
 
 type QuizAnswer struct {
-	Id        uuid.UUID       `json:"id"`
-	CreatedAt time.Time       `json:"created_at"`
-	QuizSlug  string          `json:"quiz_slug"`
-	Answers   json.RawMessage `json:"answers"`
-	UserId    uuid.UUID       `json:"user_id"`
-	Completed bool            `json:"completed"`
+	Id             int             `json:"id"`
+	CreatedAt      time.Time       `json:"created_at"`
+	QuizSlug       string          `json:"quiz_slug"`
+	RawAnswers     json.RawMessage `json:"answers"`
+	DecodedAnswers []Answer        `json:"decoded_answers"`
+	UserId         uuid.UUID       `json:"user_id"`
+	Completed      bool            `json:"completed"`
 }
 
+type Answer struct {
+	QuestionId string `json:"question_id"`
+	Answer     string `json:"answer"`
+	Context    string `json:"context"`
+	Bookmarked bool   `json:"bookmarked"`
+}
 
 type Quiz struct {
-  Name string
-  Slug string
-  Questions []QuizQuestion
+	Name      string
+	Slug      string
+	Questions []QuizQuestion
 }

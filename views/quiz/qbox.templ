@@ -1,23 +1,32 @@
 package quiz
 
 import (
-  "strconv"
+	"strconv"
 )
 
-templ Qbox(q string, l string, u string, a []string) {
-		<div class="bg-white rounded-b-[10px] lg:rounded-b-[16px] p-16">
-			<p>Question { l }/{ u }</p>
-			<div class="flex w-full justify-between items-center pt-2 pb-6">
-				<h1 class="font-semibold text-2xl">
-					{ q }
-				</h1>
+templ Qbox(q, l, u, s string, a []string) {
+	<form
+		hx-put={ "/quiz/" + s }
+		hx-trigger="submit"
+		hx-target="#content-box"
+		hx-swap="outerHTML"
+		class="bg-white rounded-b-[10px] lg:rounded-b-[16px] p-16"
+		id="content-box"
+	>
+		<p>Question { l }/{ u }</p>
+		<div class="flex w-full justify-between items-center pt-2 pb-6">
+			<h1 class="font-semibold text-2xl">
+				{ q }
+			</h1>
+			<button type="button" id="bookmark" class="min-w-[24px] p-4 min-h-[24px] flex items-center justify-center z-10">
 				<svg
 					xmlns="http://www.w3.org/2000/svg"
 					fill="none"
 					viewBox="0 0 24 24"
 					stroke-width="1.5"
 					stroke="currentColor"
-					class="size-6"
+					class="size-6 min-w-[24px] min-h-[24px] cursor-pointer z-[-1]"
+					id="bookmark-svg"
 				>
 					<path
 						stroke-linecap="round"
@@ -25,26 +34,100 @@ templ Qbox(q string, l string, u string, a []string) {
 						d="M17.593 3.322c1.1.128 1.907 1.077 1.907 2.185V21L12 17.25 4.5 21V5.507c0-1.108.806-2.057 1.907-2.185a48.507 48.507 0 0 1 11.186 0Z"
 					></path>
 				</svg>
-			</div>
-			<div class="flex flex-col gap-y-3 pb-7">
-        for i, t := range a {
-          <button
-            class="bg-pink-300 flex px-2 py-[7px] items-center border rounded-[4px] gap-x-2 font-inter w-fit hover:bg-pink-500 transition-all" 
-          >
-            <span class="bg-white border rounded-full w-[20px] h-[20px] flex items-center justify-center">{ strconv.Itoa(i + 1) }</span>
-            <p>{ t }</p>
-          </button>
-        }
-				<div class="flex gap-x-2 items-center">
-					<button class="bg-green-300 flex px-4 py-[4px] items-center border rounded-[4px] font-inter w-fit">
-						<p>Add additional context</p>
-					</button>
-					<p class="text-xs text-gray-400 text-[12px] opacity-50">OR</p>
-					<button class="bg-green-700 flex px-4 py-[4px] items-center border rounded-[4px] font-inter w-fit">
-						<p>Skip</p>
-					</button>
-				</div>
-			</div>
-			<a href="#" class="text-black text-[12px] opacity-75 mt-8 font-inter">&lt;- Previous Question</a>
+			</button>
 		</div>
+		<div class="flex flex-col gap-y-3 pb-7">
+			for i, t := range a {
+				<button
+					type="button"
+					data-index={ strconv.Itoa(i + 1) }
+					class="bg-pink-300 flex px-2 py-[7px] items-center border rounded-[4px] gap-x-2 font-inter w-fit hover:bg-pink-500 transition-all option-btn"
+				>
+					<span class="bg-white border rounded-full w-[20px] h-[20px] flex items-center justify-center">
+						{ strconv.Itoa(i + 1) }
+					</span>
+					<p>{ t }</p>
+				</button>
+			}
+			<input type="hidden" name="selectedOption" id="selectedOption"/>
+			<input type="hidden" name="bookmarked" id="bookmarked" value="false"/>
+			<div id="contextBox" class="hidden flex flex-col gap-y-2">
+				<textarea
+					name="additionalContext"
+					class="border rounded-[4px] p-2 font-inter"
+					placeholder="Add additional context here..."
+				></textarea>
+			</div>
+			<div class="flex gap-x-2 items-center">
+				<button
+					type="button"
+					id="addContextBtn"
+					class="bg-green-300 flex px-4 py-[4px] items-center border rounded-[4px] font-inter w-fit"
+				>
+					<p>Add additional context</p>
+				</button>
+				<p class="text-xs text-gray-400 text-[12px] opacity-50">OR</p>
+				<button
+					type="submit"
+					id="skipBtn"
+					class="bg-green-700 flex px-4 py-[4px] items-center border rounded-[4px] font-inter w-fit"
+				>
+					<p>Skip</p>
+				</button>
+			</div>
+		</div>
+		<a href="#" class="text-black text-[12px] opacity-75 mt-8 font-inter">&lt;- Previous Question</a>
+	</form>
+	<script>
+  function attachEventListeners() {
+    const contentBox = document.getElementById('content-box');
+
+    contentBox.querySelectorAll('.option-btn').forEach(button => {
+      button.addEventListener('click', function (e) {
+        e.preventDefault();
+        var selectedOption = e.target.closest('.option-btn');
+        contentBox.querySelectorAll('.option-btn').forEach(btn => btn.classList.remove('bg-pink-500'));
+        selectedOption.classList.add('bg-pink-500');
+
+        document.getElementById('selectedOption').value = selectedOption.getAttribute('data-index');
+        document.getElementById('skipBtn').innerText = "Next";
+      });
+    });
+
+    const ctxBtn = document.getElementById('addContextBtn');
+    ctxBtn.addEventListener('click', function (e) {
+      e.preventDefault();
+      var contextBox = document.getElementById('contextBox');
+      if (contextBox.classList.contains('hidden')) {
+        ctxBtn.innerText = "Hide";
+        contextBox.classList.remove('hidden');
+      } else {
+        ctxBtn.innerText = "Add additional context";
+        contextBox.classList.add('hidden');
+      }
+    });
+
+    const bookmarkBtn = document.getElementById('bookmark');
+    bookmarkBtn.addEventListener('click', function (e) {
+      e.preventDefault();
+      var bookmark = document.getElementById('bookmark-svg');
+      var bookmarkState = document.getElementById('bookmarked');
+      if (bookmark.getAttribute('fill') === 'none') {
+        bookmark.setAttribute('fill', '#F5A6D5');
+        bookmarkState.value = "true";
+      } else {
+        bookmark.setAttribute('fill', 'none');
+        bookmarkState.value = "false";
+      }
+    });
+  }
+
+  document.addEventListener('htmx:afterSwap', function (event) {
+    if (event.detail.target.id === 'content-box') {
+      attachEventListeners();
+    }
+  });
+
+  attachEventListeners();
+</script>
 }

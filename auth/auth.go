@@ -6,6 +6,7 @@ import (
 	"os"
 
 	jwt "github.com/golang-jwt/jwt/v4"
+	"github.com/google/uuid"
 
 	t "neurokin/types"
 	u "neurokin/util"
@@ -23,12 +24,12 @@ func WithJWT(handlerFunc http.HandlerFunc, s t.Storage) http.HandlerFunc {
 
 		token, err := validateJWT(tokenString)
 		if err != nil {
-      http.Redirect(w, r, "/login", http.StatusSeeOther)
+			http.Redirect(w, r, "/login", http.StatusSeeOther)
 			return
 		}
 
 		if !token.Valid {
-      http.Redirect(w, r, "/login", http.StatusSeeOther)
+			http.Redirect(w, r, "/login", http.StatusSeeOther)
 			return
 		}
 
@@ -37,7 +38,6 @@ func WithJWT(handlerFunc http.HandlerFunc, s t.Storage) http.HandlerFunc {
 		email := claims["email"].(string)
 
 		_, err = s.GetAccountByEmail(email)
-
 
 		if err != nil {
 			u.WriteJSON(w, http.StatusUnauthorized, "Unauthorized")
@@ -60,6 +60,23 @@ func GetEmailFromJWT(tokenString string) (string, error) {
 	return claims["email"].(string), nil
 }
 
+func GetIDFromJWT(tokenString string) (uuid.UUID, error) {
+	token, err := validateJWT(tokenString)
+
+	if err != nil {
+		return uuid.UUID{}, err
+	}
+
+	claims := token.Claims.(jwt.MapClaims)
+
+	id, err := uuid.Parse(claims["sub"].(string))
+	if err != nil {
+		return uuid.UUID{}, err
+	}
+
+	return id, nil
+}
+
 func validateJWT(tokenString string) (*jwt.Token, error) {
 	secret := os.Getenv("SUPA_JWT")
 
@@ -71,4 +88,3 @@ func validateJWT(tokenString string) (*jwt.Token, error) {
 		return []byte(secret), nil
 	})
 }
-

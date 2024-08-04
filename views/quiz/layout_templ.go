@@ -33,7 +33,7 @@ func Layout() templ.Component {
 				templ_7745c5c3_Buffer = templ.GetBuffer()
 				defer templ.ReleaseBuffer(templ_7745c5c3_Buffer)
 			}
-			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<div class=\"min-h-full lg:flex-1 lg:flex lg:items-center lg:justify-center\"><div class=\"container w-full flex flex-col lg:flex-row items-center justify-center py-10 px-2 lg:p-0 lg:gap-x-20 mx-auto\"><div class=\"flex flex-col bg-green-500 p-[1.5px] lg:p-[2px] rounded-[10px] lg:rounded-[16px] w-full lg:w-[40%]\"><div class=\"bg-green-500 flex gap-x-[4px] lg:gap-x-[6px] p-[6px] lg:p-2.5 rounded-t-[10px] lg:rounded-t-[16px]\"><div class=\"bg-white rounded-full w-[9px] h-[9px] lg:w-[12px] lg:h-[12px]\"></div><div class=\"bg-white rounded-full w-[9px] h-[9px] lg:w-[12px] lg:h-[12px]\"></div><div class=\"bg-white rounded-full w-[9px] h-[9px] lg:w-[12px] lg:h-[12px]\"></div></div>")
+			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<div id=\"layoutContainer\" class=\"min-h-full lg:flex-1 py-5 lg:flex lg:items-center lg:justify-center\"><div class=\"container w-full flex flex-col lg:flex-row items-center justify-center py-10 px-2 lg:p-0 lg:gap-x-20 mx-auto\"><div class=\"flex flex-col bg-green-500 p-[1.5px] lg:p-[2px] rounded-[10px] lg:rounded-[16px] w-full lg:w-[40%]\"><div class=\"bg-green-500 flex gap-x-[4px] lg:gap-x-[6px] p-[6px] lg:p-2.5 rounded-t-[10px] lg:rounded-t-[16px]\"><div class=\"bg-white rounded-full w-[9px] h-[9px] lg:w-[12px] lg:h-[12px]\"></div><div class=\"bg-white rounded-full w-[9px] h-[9px] lg:w-[12px] lg:h-[12px]\"></div><div class=\"bg-white rounded-full w-[9px] h-[9px] lg:w-[12px] lg:h-[12px]\"></div></div>")
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
@@ -41,7 +41,7 @@ func Layout() templ.Component {
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
-			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("</div></div></div><script>\n      \n  \n\n    </script>")
+			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("</div></div></div>")
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}

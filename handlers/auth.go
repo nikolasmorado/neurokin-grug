@@ -4,6 +4,7 @@ import (
 	"net/http"
 	"neurokin/views/auth"
 	"strings"
+	"time"
 
 	t "neurokin/types"
 	u "neurokin/util"
@@ -60,6 +61,7 @@ func login(w http.ResponseWriter, r *http.Request, s t.Storage) error {
 		Value:    res,
 		Path:     "/",
 		HttpOnly: true,
+    Expires:  time.Now().Add(24 * time.Hour),
 	})
 
 	w.WriteHeader(http.StatusOK)
