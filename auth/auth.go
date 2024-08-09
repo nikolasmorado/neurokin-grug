@@ -14,45 +14,50 @@ import (
 func WithJWT(handlerFunc http.HandlerFunc, s t.Storage) http.HandlerFunc {
 	return func(w http.ResponseWriter, r *http.Request) {
 
-		tokenString := r.Header.Get("Authorization")
+		cookie, err := r.Cookie("Authorization")
+		if err != nil {
+			u.WriteJSON(w, http.StatusUnauthorized, "Unauthorized")
+			return
+		}
+		tokenString := cookie.Value
 
 		token, err := validateJWT(tokenString)
+		if err != nil {
+      http.Redirect(w, r, "/login", http.StatusSeeOther)
+			return
+		}
+
+		if !token.Valid {
+      http.Redirect(w, r, "/login", http.StatusSeeOther)
+			return
+		}
+
+		claims := token.Claims.(jwt.MapClaims)
+
+		email := claims["email"].(string)
+
+		_, err = s.GetAccountByEmail(email)
+
 
 		if err != nil {
 			u.WriteJSON(w, http.StatusUnauthorized, "Unauthorized")
 			return
 		}
 
-		if !token.Valid {
-			u.WriteJSON(w, http.StatusUnauthorized, "Unauthorized")
-			return
-		}
-
-		// claims := token.Claims.(jwt.MapClaims)
-
-		// uID := claims["accountId"].(float64)
-
-		// _, err = s.GetAccount(int(uID))
-
-		// if err != nil {
-		// 	u.WriteJSON(w, http.StatusUnauthorized, "Unauthorized")
-		// 	return
-		// }
-
 		handlerFunc(w, r)
 	}
 }
 
-func GetIdFromJWT(tokenString string) (int, error) {
+func GetEmailFromJWT(tokenString string) (string, error) {
 	token, err := validateJWT(tokenString)
 
 	if err != nil {
-		return 0, err
+		return "", err
 	}
 
 	claims := token.Claims.(jwt.MapClaims)
 
-	return int(claims["accountId"].(float64)), nil
+	return claims["email"].(string), nil
 }
 
 func validateJWT(tokenString string) (*jwt.Token, error) {
@@ -66,3 +71,4 @@ func validateJWT(tokenString string) (*jwt.Token, error) {
 		return []byte(secret), nil
 	})
 }
+

@@ -4,6 +4,7 @@ import (
 	"net/http"
 
 	"github.com/go-chi/chi/v5"
+	a "neurokin/auth"
 	h "neurokin/handlers"
 	t "neurokin/types"
 	u "neurokin/util"
@@ -35,14 +36,16 @@ func (s *Server) Start() error {
 	router.Get("/", h.Make(h.HandleHome))
 	router.Post("/waitlist", h.Make(h.HandleWaitlist(deps)))
 
-  router.HandleFunc("/login", h.Make(h.HandleLogin(deps)))
-  router.HandleFunc("/signup", h.Make(h.HandleSignup(deps)))
+	router.HandleFunc("/login", h.Make(h.HandleLogin(deps)))
+	router.HandleFunc("/signup", h.Make(h.HandleSignup(deps)))
 
-  router.HandleFunc("/dashboard", h.Make(h.HandleDashboard))
+	router.HandleFunc("/dashboard", a.WithJWT(h.Make(h.HandleDashboard), s.store))
 
-  router.HandleFunc("/verify", h.Make(h.HandleVerify))
+	router.HandleFunc("/verify", h.Make(h.HandleVerify))
 
-  router.HandleFunc("/quiz", h.Make(h.HandleQuiz))
+	router.HandleFunc("/quiz", h.Make(h.HandleQuiz))
+  //handle slugs to quiz
+  router.HandleFunc("/quiz/{slug}", h.Make(h.HandleQuizSlug(deps)))
 
 	return http.ListenAndServe(s.listenAddr, router)
 }

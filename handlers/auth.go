@@ -47,7 +47,7 @@ func login(w http.ResponseWriter, r *http.Request, s t.Storage) error {
 		return u.WriteJSON(w, http.StatusBadRequest, map[string]string{"error": "Please enter a valid email address."})
 	}
 
-	_, err := s.Login(email, password)
+	res, err := s.Login(email, password)
 	if err != nil {
 		if strings.Contains(err.Error(), "EMAIL_NOT_FOUND") {
 			return u.WriteJSON(w, http.StatusBadRequest, map[string]string{"error": "Email not found."})
@@ -55,9 +55,15 @@ func login(w http.ResponseWriter, r *http.Request, s t.Storage) error {
 		return u.WriteJSON(w, http.StatusBadRequest, map[string]string{"error": "Invalid email or password."})
 	}
 
+	http.SetCookie(w, &http.Cookie{
+		Name:     "Authorization",
+		Value:    res,
+		Path:     "/",
+		HttpOnly: true,
+	})
 
-  w.WriteHeader(http.StatusOK)
-  return nil
+	w.WriteHeader(http.StatusOK)
+	return nil
 }
 
 func register(w http.ResponseWriter, r *http.Request, s t.Storage) error {
@@ -86,8 +92,8 @@ func register(w http.ResponseWriter, r *http.Request, s t.Storage) error {
 		return err
 	}
 
-  w.WriteHeader(http.StatusOK)
-  return nil
+	w.WriteHeader(http.StatusOK)
+	return nil
 }
 
 func RenderLogin(w http.ResponseWriter, r *http.Request) error {

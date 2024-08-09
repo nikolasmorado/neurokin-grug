@@ -1,9 +1,12 @@
 package store
 
 import (
-	"github.com/supabase-community/supabase-go"
-  sgtgt "github.com/supabase-community/gotrue-go/types"
+	"encoding/json"
 	t "neurokin/types"
+
+	"github.com/google/uuid"
+	sgtgt "github.com/supabase-community/gotrue-go/types"
+	"github.com/supabase-community/supabase-go"
 )
 
 func InitSupabase(u string, k string) (s *Store, err error) {
@@ -71,7 +74,6 @@ func (s *Store) CreateAccount(account *t.Account, password string) error {
 		"",
 	).Execute()
 
-
   if err != nil {
     return err
   }
@@ -79,3 +81,112 @@ func (s *Store) CreateAccount(account *t.Account, password string) error {
 	return nil
 
 }
+
+func (s *Store) CreateQuizAnswer(quizAnswer *t.QuizAnswer) error {
+  _, _, err := s.db.From("quiz_answers").Insert(
+    []map[string]interface{}{{
+      "id":         quizAnswer.Id,
+      "created_at": quizAnswer.CreatedAt,
+      "quiz_slug":  quizAnswer.QuizSlug,
+      "answers":    quizAnswer.Answers,
+      "user_id":    quizAnswer.UserId,
+      "completed":  quizAnswer.Completed,
+    }},
+    false,
+    "",
+    "minimal",
+    "",
+  ).Execute()
+
+  if err != nil {
+    return err
+  }
+
+  return nil
+}
+
+func (s *Store) GetAccountByEmail(email string) (*t.Account, error) {
+  res, _, err := s.db.From("users").Select("*", "exact", false).Eq(
+    "email",
+    email,
+  ).Single().Execute()
+
+  if err != nil {
+    return nil, err
+  }
+
+  var account t.Account
+  err = json.Unmarshal(res, &account)
+
+  if err != nil {
+    return nil, err
+  }
+
+  return &account, nil
+}
+
+func (s *Store) GetAccountById(id uuid.UUID) (*t.Account, error) {
+  res, _, err := s.db.From("users").Select("*", "exact", false).Eq(
+    "id",
+    id.String(),
+  ).Execute()
+
+  if err != nil {
+    return nil, err
+  }
+
+  var account t.Account
+  err = json.Unmarshal(res, &account)
+
+  if err != nil {
+    return nil, err
+  }
+
+  return &account, nil
+}
+
+func (s *Store) GetQuizAnswer(quizSlug string, userId uuid.UUID) (*t.QuizAnswer, error) {
+  res, _, err := s.db.From("quiz_answers").Select("*", "exact", false).Eq(
+    "quiz_slug",
+    quizSlug,
+  ).Eq(
+    "user_id",
+    userId.String(),
+  ).Execute()
+
+  if err != nil {
+    return nil, err
+  }
+
+  var quizAnswer t.QuizAnswer
+  err = json.Unmarshal(res, &quizAnswer)
+
+  if err != nil {
+    return nil, err
+  }
+
+  return &quizAnswer, nil
+}
+
+func (s *Store) UpdateQuizAnswer(quizAnswer *t.QuizAnswer) error {
+  _, _, err := s.db.From("quiz_answers").Update(
+    []map[string]interface{}{{
+      "id":         quizAnswer.Id,
+      "created_at": quizAnswer.CreatedAt,
+      "quiz_slug":  quizAnswer.QuizSlug,
+      "answers":    quizAnswer.Answers,
+      "user_id":    quizAnswer.UserId,
+      "completed":  quizAnswer.Completed,
+    }},
+    "minimal",
+    "exact",
+  ).Execute()
+
+  if err != nil {
+    return err
+  }
+
+  return nil
+}
+
+
