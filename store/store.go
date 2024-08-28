@@ -211,4 +211,3 @@ func (s *Store) UpdateQuizAnswer(quizAnswer *t.QuizAnswer) error {
 
 	return nil
 }
-

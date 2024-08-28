@@ -1,19 +1,25 @@
 package quiz
 
-templ Meta(n, s string) {
+templ Meta(n, s, b string, d bool) {
 	<div id="content-box" class="bg-white rounded-b-[10px] lg:rounded-b-[16px] p-16">
 		<h1 class="font-semibold text-2xl">
 			{ n }
 		</h1>
 		<div class="w-full flex flex-row items-end justify-end">
-			<button
-				hx-post={ "/quiz/" + s }
-				hx-target="#content-box"
-				hx-swap="outerHTML"
-				class="text-black text-[12px] opacity-75 mt-8 font-inter text-right"
-			>
-				Start Quiz -&gt;
-			</button>
+			if d {
+        <a href="/dashboard" class="text-black text-[12px] opacity-75 mt-8 font-inter text-right">
+          { b }
+        </a>
+			} else {
+				<button
+					hx-post={ "/quiz/" + s }
+					hx-target="#content-box"
+					hx-swap="outerHTML"
+					class="text-black text-[12px] opacity-75 mt-8 font-inter text-right"
+				>
+					{ b }
+				</button>
+			}
 		</div>
 	</div>
 }

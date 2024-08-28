@@ -10,7 +10,7 @@ import "context"
 import "io"
 import "bytes"
 
-func Question(n, s string) templ.Component {
+func Question(n, s, b string, d bool) templ.Component {
 	return templ.ComponentFunc(func(ctx context.Context, templ_7745c5c3_W io.Writer) (templ_7745c5c3_Err error) {
 		templ_7745c5c3_Buffer, templ_7745c5c3_IsBuffer := templ_7745c5c3_W.(*bytes.Buffer)
 		if !templ_7745c5c3_IsBuffer {
@@ -29,7 +29,7 @@ func Question(n, s string) templ.Component {
 				templ_7745c5c3_Buffer = templ.GetBuffer()
 				defer templ.ReleaseBuffer(templ_7745c5c3_Buffer)
 			}
-			templ_7745c5c3_Err = Meta(n, s).Render(ctx, templ_7745c5c3_Buffer)
+			templ_7745c5c3_Err = Meta(n, s, b, d).Render(ctx, templ_7745c5c3_Buffer)
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}

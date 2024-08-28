@@ -14,7 +14,7 @@ import (
 	"strconv"
 )
 
-func Qbox(q, l, u, s string, a []string) templ.Component {
+func Qbox(q, l, u, s, i string, a []string) templ.Component {
 	return templ.ComponentFunc(func(ctx context.Context, templ_7745c5c3_W io.Writer) (templ_7745c5c3_Err error) {
 		templ_7745c5c3_Buffer, templ_7745c5c3_IsBuffer := templ_7745c5c3_W.(*bytes.Buffer)
 		if !templ_7745c5c3_IsBuffer {
@@ -34,7 +34,7 @@ func Qbox(q, l, u, s string, a []string) templ.Component {
 		var templ_7745c5c3_Var2 string
 		templ_7745c5c3_Var2, templ_7745c5c3_Err = templ.JoinStringErrs("/quiz/" + s)
 		if templ_7745c5c3_Err != nil {
-			return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/quiz/qbox.templ`, Line: 9, Col: 23}
+			return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/quiz/qbox.templ`, Line: 8, Col: 27}
 		}
 		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var2))
 		if templ_7745c5c3_Err != nil {
@@ -47,7 +47,7 @@ func Qbox(q, l, u, s string, a []string) templ.Component {
 		var templ_7745c5c3_Var3 string
 		templ_7745c5c3_Var3, templ_7745c5c3_Err = templ.JoinStringErrs(l)
 		if templ_7745c5c3_Err != nil {
-			return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/quiz/qbox.templ`, Line: 16, Col: 17}
+			return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/quiz/qbox.templ`, Line: 10, Col: 17}
 		}
 		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var3))
 		if templ_7745c5c3_Err != nil {
@@ -60,7 +60,7 @@ func Qbox(q, l, u, s string, a []string) templ.Component {
 		var templ_7745c5c3_Var4 string
 		templ_7745c5c3_Var4, templ_7745c5c3_Err = templ.JoinStringErrs(u)
 		if templ_7745c5c3_Err != nil {
-			return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/quiz/qbox.templ`, Line: 16, Col: 23}
+			return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/quiz/qbox.templ`, Line: 10, Col: 23}
 		}
 		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var4))
 		if templ_7745c5c3_Err != nil {
@@ -73,7 +73,7 @@ func Qbox(q, l, u, s string, a []string) templ.Component {
 		var templ_7745c5c3_Var5 string
 		templ_7745c5c3_Var5, templ_7745c5c3_Err = templ.JoinStringErrs(q)
 		if templ_7745c5c3_Err != nil {
-			return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/quiz/qbox.templ`, Line: 19, Col: 7}
+			return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/quiz/qbox.templ`, Line: 13, Col: 9}
 		}
 		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var5))
 		if templ_7745c5c3_Err != nil {
@@ -91,7 +91,7 @@ func Qbox(q, l, u, s string, a []string) templ.Component {
 			var templ_7745c5c3_Var6 string
 			templ_7745c5c3_Var6, templ_7745c5c3_Err = templ.JoinStringErrs(strconv.Itoa(i + 1))
 			if templ_7745c5c3_Err != nil {
-				return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/quiz/qbox.templ`, Line: 43, Col: 37}
+				return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/quiz/qbox.templ`, Line: 26, Col: 58}
 			}
 			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var6))
 			if templ_7745c5c3_Err != nil {
@@ -104,7 +104,7 @@ func Qbox(q, l, u, s string, a []string) templ.Component {
 			var templ_7745c5c3_Var7 string
 			templ_7745c5c3_Var7, templ_7745c5c3_Err = templ.JoinStringErrs(strconv.Itoa(i + 1))
 			if templ_7745c5c3_Err != nil {
-				return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/quiz/qbox.templ`, Line: 47, Col: 27}
+				return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/quiz/qbox.templ`, Line: 29, Col: 29}
 			}
 			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var7))
 			if templ_7745c5c3_Err != nil {
@@ -117,7 +117,7 @@ func Qbox(q, l, u, s string, a []string) templ.Component {
 			var templ_7745c5c3_Var8 string
 			templ_7745c5c3_Var8, templ_7745c5c3_Err = templ.JoinStringErrs(t)
 			if templ_7745c5c3_Err != nil {
-				return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/quiz/qbox.templ`, Line: 49, Col: 11}
+				return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/quiz/qbox.templ`, Line: 31, Col: 12}
 			}
 			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var8))
 			if templ_7745c5c3_Err != nil {
@@ -128,7 +128,20 @@ func Qbox(q, l, u, s string, a []string) templ.Component {
 				return templ_7745c5c3_Err
 			}
 		}
-		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<input type=\"hidden\" name=\"selectedOption\" id=\"selectedOption\"> <input type=\"hidden\" name=\"bookmarked\" id=\"bookmarked\" value=\"false\"><div id=\"contextBox\" class=\"hidden flex flex-col gap-y-2\"><textarea name=\"additionalContext\" class=\"border rounded-[4px] p-2 font-inter\" placeholder=\"Add additional context here...\"></textarea></div><div class=\"flex gap-x-2 items-center\"><button type=\"button\" id=\"addContextBtn\" class=\"bg-green-300 flex px-4 py-[4px] items-center border rounded-[4px] font-inter w-fit\"><p>Add additional context</p></button><p class=\"text-xs text-gray-400 text-[12px] opacity-50\">OR</p><button type=\"submit\" id=\"skipBtn\" class=\"bg-green-700 flex px-4 py-[4px] items-center border rounded-[4px] font-inter w-fit\"><p>Skip</p></button></div></div><a href=\"#\" class=\"text-black text-[12px] opacity-75 mt-8 font-inter\">&lt;- Previous Question</a></form><script>\n  function attachEventListeners() {\n    const contentBox = document.getElementById('content-box');\n\n    contentBox.querySelectorAll('.option-btn').forEach(button => {\n      button.addEventListener('click', function (e) {\n        e.preventDefault();\n        var selectedOption = e.target.closest('.option-btn');\n        contentBox.querySelectorAll('.option-btn').forEach(btn => btn.classList.remove('bg-pink-500'));\n        selectedOption.classList.add('bg-pink-500');\n\n        document.getElementById('selectedOption').value = selectedOption.getAttribute('data-index');\n        document.getElementById('skipBtn').innerText = \"Next\";\n      });\n    });\n\n    const ctxBtn = document.getElementById('addContextBtn');\n    ctxBtn.addEventListener('click', function (e) {\n      e.preventDefault();\n      var contextBox = document.getElementById('contextBox');\n      if (contextBox.classList.contains('hidden')) {\n        ctxBtn.innerText = \"Hide\";\n        contextBox.classList.remove('hidden');\n      } else {\n        ctxBtn.innerText = \"Add additional context\";\n        contextBox.classList.add('hidden');\n      }\n    });\n\n    const bookmarkBtn = document.getElementById('bookmark');\n    bookmarkBtn.addEventListener('click', function (e) {\n      e.preventDefault();\n      var bookmark = document.getElementById('bookmark-svg');\n      var bookmarkState = document.getElementById('bookmarked');\n      if (bookmark.getAttribute('fill') === 'none') {\n        bookmark.setAttribute('fill', '#F5A6D5');\n        bookmarkState.value = \"true\";\n      } else {\n        bookmark.setAttribute('fill', 'none');\n        bookmarkState.value = \"false\";\n      }\n    });\n  }\n\n  document.addEventListener('htmx:afterSwap', function (event) {\n    if (event.detail.target.id === 'content-box') {\n      attachEventListeners();\n    }\n  });\n\n  attachEventListeners();\n</script>")
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<input type=\"hidden\" name=\"selectedOption\" id=\"selectedOption\"> <input type=\"hidden\" name=\"bookmarked\" id=\"bookmarked\" value=\"false\"> <input type=\"hidden\" name=\"questionId\" id=\"questionId\" value=\"")
+		if templ_7745c5c3_Err != nil {
+			return templ_7745c5c3_Err
+		}
+		var templ_7745c5c3_Var9 string
+		templ_7745c5c3_Var9, templ_7745c5c3_Err = templ.JoinStringErrs(i)
+		if templ_7745c5c3_Err != nil {
+			return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/quiz/qbox.templ`, Line: 36, Col: 68}
+		}
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var9))
+		if templ_7745c5c3_Err != nil {
+			return templ_7745c5c3_Err
+		}
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("\"><div id=\"contextBox\" class=\"hidden flex flex-col gap-y-2\"><textarea name=\"additionalContext\" class=\"border rounded-[4px] p-2 font-inter\" placeholder=\"Add additional context here...\"></textarea></div><div class=\"flex gap-x-2 items-center\"><button type=\"button\" id=\"addContextBtn\" class=\"bg-green-300 flex px-4 py-[4px] items-center border rounded-[4px] font-inter w-fit\"><p>Add additional context</p></button><p class=\"text-xs text-gray-400 text-[12px] opacity-50\">OR</p><button type=\"submit\" id=\"skipBtn\" class=\"bg-green-700 flex px-4 py-[4px] items-center border rounded-[4px] font-inter w-fit\"><p>Skip</p></button></div></div><a href=\"#\" class=\"text-black text-[12px] opacity-75 mt-8 font-inter\">&lt;- Previous Question</a></form><script>\n  function attachEventListeners() {\n    const contentBox = document.getElementById('content-box');\n\n    contentBox.querySelectorAll('.option-btn').forEach(button => {\n      button.addEventListener('click', function (e) {\n        e.preventDefault();\n        selectOption(e.target.closest('.option-btn'));\n      });\n    });\n\n    const ctxBtn = document.getElementById('addContextBtn');\n    ctxBtn.addEventListener('click', function (e) {\n      e.preventDefault();\n      toggleContextBox();\n    });\n\n    const bookmarkBtn = document.getElementById('bookmark');\n    bookmarkBtn.addEventListener('click', function (e) {\n      e.preventDefault();\n      toggleBookmark();\n    });\n\n    document.addEventListener('keydown', function (e) {\n      if (e.key >= '1' && e.key <= '4') {\n        e.preventDefault();\n        const optionIndex = parseInt(e.key, 10) - 1;\n        const optionBtn = contentBox.querySelectorAll('.option-btn')[optionIndex];\n        if (optionBtn) {\n          selectOption(optionBtn);\n        }\n      } else if (e.key === 'Enter') {\n        e.preventDefault();\n         if (selectedOption) {\n            const skipBtn = document.getElementById('skipBtn');\n            skipBtn.click(); \n        } else {\n            document.getElementById('content-box').dispatchEvent(new Event('submit', { bubbles: true, cancelable: true }));\n        }\n\n      }\n    });\n  }\n\n  function selectOption(selectedOption) {\n    const contentBox = document.getElementById('content-box');\n    contentBox.querySelectorAll('.option-btn').forEach(btn => btn.classList.remove('bg-pink-500'));\n    selectedOption.classList.add('bg-pink-500');\n    document.getElementById('selectedOption').value = selectedOption.getAttribute('data-index');\n    document.getElementById('skipBtn').innerText = \"Next\";\n  }\n\n  function toggleContextBox() {\n    var contextBox = document.getElementById('contextBox');\n    var ctxBtn = document.getElementById('addContextBtn');\n    if (contextBox.classList.contains('hidden')) {\n      ctxBtn.innerText = \"Hide\";\n      contextBox.classList.remove('hidden');\n    } else {\n      ctxBtn.innerText = \"Add additional context\";\n      contextBox.classList.add('hidden');\n    }\n  }\n\n  function toggleBookmark() {\n    var bookmark = document.getElementById('bookmark-svg');\n    var bookmarkState = document.getElementById('bookmarked');\n    if (bookmark.getAttribute('fill') === 'none') {\n      bookmark.setAttribute('fill', '#F5A6D5');\n      bookmarkState.value = \"true\";\n    } else {\n      bookmark.setAttribute('fill', 'none');\n      bookmarkState.value = \"false\";\n    }\n  }\n\n  document.addEventListener('htmx:afterSwap', function (event) {\n    if (event.detail.target.id === 'content-box') {\n      attachEventListeners();\n    }\n  });\n\n  attachEventListeners();\n</script>")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
