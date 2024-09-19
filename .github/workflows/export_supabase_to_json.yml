@@ -48,15 +48,10 @@ jobs:
 
     - name: Merge quiz questions into quizzes
       run: |
-        jq -s '[
-          .[1] as $quizzes |
-          .[0] as $questions |
-          $quizzes | map(
-            .questions = ($questions | map(select(.quiz == .slug)) | map({
-              id, question, type, answers
-            }))
-          )
-        ]' quiz_questions.json quizzes.json > merged_quizzes.json
+        jq -n '
+        (input | map({slug: .quiz, question: .}) | group_by(.slug) | map({slug: .[0].slug, questions: map(.question)})) as $questions |
+        (input | map(. + {questions: ($questions[] | select(.slug == .slug).questions // [])}))
+        ' quiz_questions.json quizzes.json > merged_quizzes.json
 
 
     - name: Commit and push JSON files to the repository
