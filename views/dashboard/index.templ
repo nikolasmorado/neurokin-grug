@@ -1,8 +1,11 @@
 package dashboard
 
-import "neurokin/views/layouts"
+import (
+  "neurokin/views/layouts"
+  t "neurokin/types"
+)
 
-templ Index(u string) {
+templ Index(u string, t []t.Task) {
 	@layouts.Base() {
 		<div class="min-h-full bg-pink-300 lg:flex lg:flex-1 lg:items-start">
 			<div

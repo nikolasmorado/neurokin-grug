@@ -41,10 +41,18 @@ type Account struct {
 	// Phone     string `json:"phone"`
 }
 
+type QuestionType string
+
+const (
+	QTypeMultipleChoice QuestionType = "mc"
+	QTypeText           QuestionType = "text"
+)
+
 type QuizQuestion struct {
-	Question   string
-	Answers    []string
-	QuestionId string
+	Question string       `json:"question"`
+	Answers  []string     `json:"answers"`
+	Id       string       `json:"question_id"`
+	Type     QuestionType `json:"type,omitempty"`
 }
 
 type QuizAnswer struct {
@@ -65,22 +73,30 @@ type Answer struct {
 }
 
 type Quiz struct {
-	Name      string
-	Slug      string
-	Questions []QuizQuestion
+	Id        int            `json:"id"`
+	Name      string         `json:"name"`
+	Slug      string         `json:"slug"`
+	Questions []QuizQuestion `json:"questions"`
 }
 
+type Orientation string
+
+const (
+	OrientationLTR Orientation = "ltr"
+	OrientationRTL Orientation = "rtl"
+)
+
 type Section struct {
-	Id          int       `json:"id"`
-	CreatedAt   time.Time `json:"created_at"`
-	Subtitle    string    `json:"subtitle"`
-	Title       string    `json:"title"`
-	Description string    `json:"description"`
-	Cta         string    `json:"cta"`
-	Link        string    `json:"link"`
-	Orientation string    `json:"orientation"`
-	BgColor     string    `json:"bg-color"`
-	Img         string    `json:"img"`
+	Id          int         `json:"id"`
+	CreatedAt   time.Time   `json:"created_at"`
+	Subtitle    string      `json:"subtitle"`
+	Title       string      `json:"title"`
+	Description string      `json:"description"`
+	Cta         string      `json:"cta"`
+	Link        string      `json:"link"`
+	Orientation Orientation `json:"orientation"`
+	BgColor     string      `json:"bg-color"`
+	Img         string      `json:"img"`
 }
 
 type Tile struct {
@@ -90,11 +106,18 @@ type Tile struct {
 	Content   string    `json:"content"`
 }
 
+type TaskType string
+
+const (
+	TTypeQuiz TaskType = "quiz"
+	TTypeTask TaskType = "task"
+)
+
 type Task struct {
 	Id          int       `json:"id"`
 	CreatedAt   time.Time `json:"created_at"`
 	Slug        string    `json:"slug"`
-	Type        string    `json:"type"`
+	Type        TaskType  `json:"type"`
 	Name        string    `json:"name"`
 	Description string    `json:"description"`
 	Eta         string    `json:"eta"`

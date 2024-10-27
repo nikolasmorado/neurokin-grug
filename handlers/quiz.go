@@ -95,13 +95,13 @@ func RenderQuizSlug(w http.ResponseWriter, r *http.Request, s t.Storage) error {
 		}
 
 		for i, a := range qz.Questions {
-			if _, exists := bqns[a.QuestionId]; exists {
+			if _, exists := bqns[a.Id]; exists {
 				return Render(w, r, quiz.QuestionSkip(
 					a.Question,
 					strconv.Itoa(i+1),
 					strconv.Itoa(len(qz.Questions)),
 					qz.Slug,
-					a.QuestionId,
+					a.Id,
 					a.Answers,
 				))
 			}
@@ -113,7 +113,7 @@ func RenderQuizSlug(w http.ResponseWriter, r *http.Request, s t.Storage) error {
 		strconv.Itoa(qIdx+1),
 		strconv.Itoa(len(qz.Questions)),
 		qz.Slug,
-		qz.Questions[qIdx].QuestionId,
+		qz.Questions[qIdx].Id,
 		qz.Questions[qIdx].Answers,
 	))
 }
@@ -146,7 +146,7 @@ func StartQuiz(w http.ResponseWriter, r *http.Request, s t.Storage) error {
 		"1",
 		strconv.Itoa(len(qz.Questions)),
 		qz.Slug,
-		qz.Questions[0].QuestionId,
+		qz.Questions[0].Id,
 		qz.Questions[0].Answers,
 	))
 }
@@ -180,7 +180,7 @@ func ProgressQuiz(w http.ResponseWriter, r *http.Request, s t.Storage) error {
 			"1",
 			strconv.Itoa(len(qz.Questions)),
 			qz.Slug,
-			qz.Questions[0].QuestionId,
+			qz.Questions[0].Id,
 			qz.Questions[0].Answers,
 		))
 	}
@@ -242,13 +242,13 @@ func ProgressQuiz(w http.ResponseWriter, r *http.Request, s t.Storage) error {
 		}
 
 		for i, a := range qz.Questions {
-			if _, exists := bqns[a.QuestionId]; exists {
+			if _, exists := bqns[a.Id]; exists {
 				return Render(w, r, quiz.Qbox(
 					a.Question,
 					strconv.Itoa(i+1),
 					strconv.Itoa(len(qz.Questions)),
 					qz.Slug,
-					a.QuestionId,
+					a.Id,
 					a.Answers,
 				))
 			}
@@ -263,7 +263,7 @@ func ProgressQuiz(w http.ResponseWriter, r *http.Request, s t.Storage) error {
 		strconv.Itoa(qIdx+1),
 		strconv.Itoa(len(qz.Questions)),
 		qz.Slug,
-		qz.Questions[qIdx].QuestionId,
+		qz.Questions[qIdx].Id,
 		qz.Questions[qIdx].Answers,
 	))
 }
