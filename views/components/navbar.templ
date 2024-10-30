@@ -9,7 +9,6 @@ templ Navbar() {
 		</a>
 		<menu id="menu" class="text-pink-700 text-lg gap-x-11 sm:flex items-center hidden">
 			<a href="/about">About</a>
-			<a href="/pricing">Pricing</a>
 			<a id="login-link" href="/login">Login</a>
 			<a id="auth-link" href="/signup" class="bg-pink-700 text-white px-4 py-2 rounded-lg">
 				Sign Up
@@ -35,7 +34,9 @@ templ Navbar() {
     const isAuthorized = document.cookie.split("; ").some((cookie) => cookie.startsWith("Authorization="));
 
     if (isAuthorized) {
-      loginLink.classList.add("hidden")
+      loginLink.textContent = "Dashboard"
+      loginLink.href = "/dashboard"
+
       authLink.textContent = "Logout";
       authLink.href = "/"; // Redirect to home page after logout
       authLink.classList.remove("bg-pink-700", "text-white", "px-4", "py-2", "rounded-lg");
@@ -58,7 +59,8 @@ templ Navbar() {
         }
       });
     } else {
-      loginLink.classList.remove("hidden")
+      loginLink.textContent = "Login"
+      loginLink.href = "/login"
     }
   });
 </script>

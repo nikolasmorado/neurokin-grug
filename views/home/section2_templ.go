@@ -48,7 +48,87 @@ func Section2(t []t.Tile) templ.Component {
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<!-- Splide Container with Dummy Data --><div class=\"mt-8 lg:mt-0  max-h-[638px]\"><div id=\"splide\" class=\"splide px-2.5 max-h-[638px]\"><div class=\"splide__track flex lg:block\"><ul class=\"splide__list flex lg:block\"><!-- Tile 1 --><li class=\"splide__slide\"><div class=\"flex flex-col bg-black rounded-[8px] scale-[80%] lg:scale-100 max-w-[353px] min-w-[353px] max-h-[194px] relative mb-16 mx-auto lg:ml-32\"><div class=\"rounded-[8px] top-0 left-0 px-7 border-[2px] py-6 translate-x-[10px] -translate-y-[10px] max-w-[353px] max-h-[194px] bg-pink-500\"><h3 class=\"text-[30px] font-degular-display font-semibold leading-none mb-5\">01-Title 1</h3><p class=\"font-anek text-[1rem] leading-[22px]\">Description for tile 1.</p></div></div></li><!-- Tile 2 --><li class=\"splide__slide\"><div class=\"flex flex-col bg-black rounded-[8px] scale-[80%] lg:scale-100 max-w-[353px] min-w-[353px] max-h-[194px] relative mt-16 mb-16 lg:mt-0 mx-auto lg:mr-auto\"><div class=\"rounded-[8px] top-0 left-0 px-7 border-[2px] py-6 translate-x-[10px] -translate-y-[10px] max-w-[353px] max-h-[194px] bg-green-500\"><h3 class=\"text-[30px] font-degular-display font-semibold leading-none mb-5\">02-Title 2</h3><p class=\"font-anek text-[1rem] leading-[22px]\">Description for tile 2.</p></div></div></li><!-- Tile 3 --><li class=\"splide__slide\"><div class=\"flex flex-col bg-black rounded-[8px] scale-[80%] lg:scale-100 max-w-[353px] min-w-[353px] max-h-[194px] relative mb-16 mx-auto lg:ml-32\"><div class=\"rounded-[8px] top-0 left-0 px-7 border-[2px] py-6 translate-x-[10px] -translate-y-[10px] max-w-[353px] max-h-[194px] bg-pink-500\"><h3 class=\"text-[30px] font-degular-display font-semibold leading-none mb-5\">03-Title 3</h3><p class=\"font-anek text-[1rem] leading-[22px]\">Description for tile 3.</p></div></div></li><li class=\"splide__slide\"><div class=\"flex flex-col bg-black rounded-[8px] scale-[80%] lg:scale-100 max-w-[353px] min-w-[353px] max-h-[194px] relative mt-16 mb-16 lg:mt-0 mx-auto lg:mr-auto\"><div class=\"rounded-[8px] top-0 left-0 px-7 border-[2px] py-6 translate-x-[10px] -translate-y-[10px] max-w-[353px] max-h-[194px] bg-green-500\"><h3 class=\"text-[30px] font-degular-display font-semibold leading-none mb-5\">04-Title 4</h3><p class=\"font-anek text-[1rem] leading-[22px]\">Description for tile 4.</p></div></div></li></ul></div></div></div></div></div><script>\n  document.addEventListener('DOMContentLoaded', function () {\n    var splide = new Splide('#splide', {\n      type: 'loop',\n      direction: 'ttb',\n      height: \"auto\",\n      drag: false,\n      pagination: false,\n      autoStart: true,\n      arrows: false,\n      preloadPages: 4,\n      autoScroll: {\n        speed: 1,\n        pauseOnHover: false,\n      },\n      breakpoints: {\n        1024: {\n          direction: 'ltr'\n        },\n        1025: {\n          mediaQuery: 'min',\n          direction: 'ttb'\n        }\n      }\n    });\n    splide.mount(window.splide.Extensions);\n  });\n</script>")
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<div class=\"mt-8 lg:mt-0  max-h-[638px]\"><div id=\"splide\" class=\"splide px-2.5 max-h-[638px]\"><div class=\"splide__track flex lg:block\"><ul class=\"splide__list flex lg:block\">")
+		if templ_7745c5c3_Err != nil {
+			return templ_7745c5c3_Err
+		}
+		for idx, item := range t {
+			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<li class=\"splide__slide\">")
+			if templ_7745c5c3_Err != nil {
+				return templ_7745c5c3_Err
+			}
+			var templ_7745c5c3_Var2 = []any{templ.KV("lg:ml-32", idx%2 == 0), templ.KV("lg:mr-auto lg:mt-0 mt-16", idx%2 != 0), " flex flex-col bg-black rounded-[8px] scale-[80%] lg:scale-100 max-w-[353px] min-w-[353px] max-h-[194px] relative mb-16 mx-auto"}
+			templ_7745c5c3_Err = templ.RenderCSSItems(ctx, templ_7745c5c3_Buffer, templ_7745c5c3_Var2...)
+			if templ_7745c5c3_Err != nil {
+				return templ_7745c5c3_Err
+			}
+			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<div class=\"")
+			if templ_7745c5c3_Err != nil {
+				return templ_7745c5c3_Err
+			}
+			var templ_7745c5c3_Var3 string
+			templ_7745c5c3_Var3, templ_7745c5c3_Err = templ.JoinStringErrs(templ.CSSClasses(templ_7745c5c3_Var2).String())
+			if templ_7745c5c3_Err != nil {
+				return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/home/section2.templ`, Line: 1, Col: 0}
+			}
+			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var3))
+			if templ_7745c5c3_Err != nil {
+				return templ_7745c5c3_Err
+			}
+			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("\">")
+			if templ_7745c5c3_Err != nil {
+				return templ_7745c5c3_Err
+			}
+			var templ_7745c5c3_Var4 = []any{templ.KV("bg-pink-500", idx%2 == 0), templ.KV("bg-green-500", idx%2 != 0), " rounded-[8px] top-0 left-0 px-7 border-[2px] py-6 translate-x-[10px] -translate-y-[10px] max-w-[353px] max-h-[194px]"}
+			templ_7745c5c3_Err = templ.RenderCSSItems(ctx, templ_7745c5c3_Buffer, templ_7745c5c3_Var4...)
+			if templ_7745c5c3_Err != nil {
+				return templ_7745c5c3_Err
+			}
+			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<div class=\"")
+			if templ_7745c5c3_Err != nil {
+				return templ_7745c5c3_Err
+			}
+			var templ_7745c5c3_Var5 string
+			templ_7745c5c3_Var5, templ_7745c5c3_Err = templ.JoinStringErrs(templ.CSSClasses(templ_7745c5c3_Var4).String())
+			if templ_7745c5c3_Err != nil {
+				return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/home/section2.templ`, Line: 1, Col: 0}
+			}
+			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var5))
+			if templ_7745c5c3_Err != nil {
+				return templ_7745c5c3_Err
+			}
+			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("\"><h3 class=\"text-[30px] font-degular-display font-semibold leading-none mb-5\">")
+			if templ_7745c5c3_Err != nil {
+				return templ_7745c5c3_Err
+			}
+			var templ_7745c5c3_Var6 string
+			templ_7745c5c3_Var6, templ_7745c5c3_Err = templ.JoinStringErrs(item.Title)
+			if templ_7745c5c3_Err != nil {
+				return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/home/section2.templ`, Line: 36, Col: 36}
+			}
+			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var6))
+			if templ_7745c5c3_Err != nil {
+				return templ_7745c5c3_Err
+			}
+			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("</h3><p class=\"font-anek text-[1rem] leading-[22px]\">")
+			if templ_7745c5c3_Err != nil {
+				return templ_7745c5c3_Err
+			}
+			var templ_7745c5c3_Var7 string
+			templ_7745c5c3_Var7, templ_7745c5c3_Err = templ.JoinStringErrs(item.Content)
+			if templ_7745c5c3_Err != nil {
+				return templ.Error{Err: templ_7745c5c3_Err, FileName: `views/home/section2.templ`, Line: 39, Col: 38}
+			}
+			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var7))
+			if templ_7745c5c3_Err != nil {
+				return templ_7745c5c3_Err
+			}
+			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("</p></div></div></li>")
+			if templ_7745c5c3_Err != nil {
+				return templ_7745c5c3_Err
+			}
+		}
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("</ul></div></div></div></div></div><script>\n  document.addEventListener('DOMContentLoaded', function () {\n    var splide = new Splide('#splide', {\n      type: 'loop',\n      direction: 'ttb',\n      height: \"auto\",\n      drag: false,\n      pagination: false,\n      autoStart: true,\n      arrows: false,\n      preloadPages: 4,\n      autoScroll: {\n        speed: 1,\n        pauseOnHover: false,\n      },\n      breakpoints: {\n        1024: {\n          direction: 'ltr'\n        },\n        1025: {\n          mediaQuery: 'min',\n          direction: 'ttb'\n        }\n      }\n    });\n    splide.mount(window.splide.Extensions);\n  });\n</script>")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
