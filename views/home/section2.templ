@@ -1,8 +1,11 @@
 package home
 
-import "neurokin/views/shared"
+import (
+  "neurokin/views/shared"
+  t "neurokin/types"
+)
 
-templ Section2() {
+templ Section2(t []t.Tile) {
 	<div
 		class="min-h-screen overflow-hidden flex flex-col items-center justify-center bg-white xl:min-h-[753px] max-h-[753px]"
 	>

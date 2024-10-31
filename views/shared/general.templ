@@ -7,7 +7,7 @@ templ General(s, t, d, c, l, o, b string) {
 		<div class="h-[115px] w-full hidden md:flex"></div>
 		<div class={ templ.KV("lg:flex-row", o == "ltr"), templ.KV("lg:flex-row-reverse", o == "rtl"), "container px-8 xl:w-[70%] flex flex-col justify-between items-center max-h-[638px]" }>
 			@Article(s, t, d, c, l, "ltr")
-			<image src="/public/images/girl-yellow.png" class="lg:max-w-1/2"></image>
+			<image src="/public/images/girl-yellow.png" class="lg:max-w-[50%]"></image>
 		</div>
 	</section>
 }

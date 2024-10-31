@@ -69,3 +69,23 @@ type Quiz struct {
 	Slug      string
 	Questions []QuizQuestion
 }
+
+type Section struct {
+	Id          int       `json:"id"`
+	CreatedAt   time.Time `json:"created_at"`
+	Subtitle    string    `json:"subtitle"`
+	Title       string    `json:"title"`
+	Description string    `json:"description"`
+	Cta         string    `json:"cta"`
+	Link        string    `json:"link"`
+	Orientation string    `json:"orientation"`
+	BgColor     string    `json:"bg-color"`
+	Img         string    `json:"img"`
+}
+
+type Tile struct {
+	Id        int       `json:"id"`
+	CreatedAt time.Time `json:"created_at"`
+	Title     string    `json:"title"`
+	Content   string    `json:"content"`
+}

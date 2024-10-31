@@ -1,0 +1,15 @@
+package about 
+
+import (
+	"neurokin/views/layouts"
+	"neurokin/views/shared"
+  t "neurokin/types"
+)
+
+templ Index(s []t.Section) {
+	@layouts.Fullheight() {
+    for _, i := range s { 
+      @shared.General(i.Subtitle, i.Title, i.Description, i.Cta, i.Link, i.Orientation, i.BgColor)
+    }
+	}
+}

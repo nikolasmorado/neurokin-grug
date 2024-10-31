@@ -77,7 +77,7 @@ func General(s, t, d, c, l, o, b string) templ.Component {
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<image src=\"/public/images/girl-yellow.png\" class=\"lg:max-w-1/2\"></image></div></section>")
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<image src=\"/public/images/girl-yellow.png\" class=\"lg:max-w-[50%]\"></image></div></section>")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
