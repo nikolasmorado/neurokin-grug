@@ -62,7 +62,7 @@ func Index() templ.Component {
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
-			templ_7745c5c3_Err = shared.General("test BUMBLEBEE", "test", "test", "test", "test", "ltr", "green-500").Render(ctx, templ_7745c5c3_Buffer)
+			templ_7745c5c3_Err = shared.General("test", "test", "test", "test", "test", "ltr", "green-500").Render(ctx, templ_7745c5c3_Buffer)
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}

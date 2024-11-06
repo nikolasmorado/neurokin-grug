@@ -1,17 +1,31 @@
-build:
-	@go build -o bin/app .
+# Paths
+OUTPUT_DIR = bin
+CSS_INPUT = views/css/app.css
+CSS_OUTPUT = public/styles.css
+
+# Commands
+build: templ css
+	@go build -o $(OUTPUT_DIR)/app .
 
 run: build
-	@./bin/app
+	@./$(OUTPUT_DIR)/app
 
 templ:
-	templ generate 
+	~/go/bin/templ generate
 
 css:
-	tailwindcss -i views/css/app.css -o public/styles.css --minify --watch
+	@tailwindcss -i $(CSS_INPUT) -o $(CSS_OUTPUT) --minify
 
 clean:
-	rm -rf bin/* public/styles.css
+	@rm -rf $(OUTPUT_DIR)/* $(CSS_OUTPUT)
 
 test:
-	go test -v ./...
+	@go test -v ./...
+
+# New target for compiling all at once
+all: clean templ css build
+
+# Tailwind watch mode without rebuild
+watch-css:
+	@tailwindcss -i $(CSS_INPUT) -o $(CSS_OUTPUT) --minify --watch
+
