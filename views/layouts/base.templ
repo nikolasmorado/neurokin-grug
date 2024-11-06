@@ -1,8 +1,6 @@
 package layouts
 
-import (
-	"neurokin/views/components"
-)
+import "neurokin/views/components"
 
 templ Base() {
 	<!DOCTYPE html>
@@ -13,12 +11,12 @@ templ Base() {
 			<meta name="viewport" content="width=device-width, initial-scale=1"/>
 			<link rel="stylesheet" href="/public/styles.css"/>
 			<script src="/public/htmx.min.js"></script>
-      <script src="/public/splide.min.js"></script>
-      <script src="/public/splide-extension-auto-scroll.min.js"></script>
+			<script src="/public/splide.min.js"></script>
+			<script src="/public/splide-extension-auto-scroll.min.js"></script>
 		</head>
 		<body class="antialiased lg:min-h-screen flex flex-col">
 			@components.Navbar()
-      <div class="h-[115px]"></div>
+			<div class="h-[115px]"></div>
 			{ children... }
 		</body>
 	</html>

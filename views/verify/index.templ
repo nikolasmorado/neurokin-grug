@@ -1,32 +1,30 @@
 package verify
 
-import (
-"neurokin/views/layouts"
-)
+import "neurokin/views/layouts"
 
 templ Index() {
-@layouts.Base() {
-
-<div class="min-h-full lg:flex-1 lg:flex lg:items-center lg:justify-center">
-  <div
-    class="container w-full flex flex-col lg:flex-row items-center justify-center py-10 px-2 lg:p-0 lg:gap-x-20 mx-auto">
-    <div class="flex flex-col bg-green-500 p-[1.5px] lg:p-[5px] rounded-[10px] lg:rounded-[16px] w-[90%] lg:w-[40%]">
-      <div class="bg-green-500 flex gap-x-[4px] lg:gap-x-[6px] p-[6px] lg:p-2.5 rounded-t-[10px] lg:rounded-t-[16px]">
-        <div
-          class="bg-white rounded-full w-[9px] h-[9px] lg:w-[12px] lg:h-[12px] duration-500 transition-all hover:bg-[#FF605C]">
-        </div>
-        <div
-          class="bg-white rounded-full w-[9px] h-[9px] lg:w-[12px] lg:h-[12px] duration-500 transition-all hover:bg-[#FFBD44]">
-        </div>
-        <div
-          class="bg-white rounded-full w-[9px] h-[9px] lg:w-[12px] lg:h-[12px] duration-500 transition-all hover:bg-[#00CA4E]">
-        </div>
-      </div>
-      <div class="bg-white rounded-b-[10px] lg:rounded-b-[16px] p-6 ">
-        <p>Please check your inbox for a verification email.</p>
-      </div>
-    </div>
-  </div>
-  </div>
-  }
-  }
+	@layouts.Base() {
+		<div class="min-h-full lg:flex-1 lg:flex lg:items-center lg:justify-center">
+			<div
+				class="container w-full flex flex-col lg:flex-row items-center justify-center py-10 px-2 lg:p-0 lg:gap-x-20 mx-auto"
+			>
+				<div class="flex flex-col bg-green-500 p-[1.5px] lg:p-[5px] rounded-[10px] lg:rounded-[16px] w-[90%] lg:w-[40%]">
+					<div class="bg-green-500 flex gap-x-[4px] lg:gap-x-[6px] p-[6px] lg:p-2.5 rounded-t-[10px] lg:rounded-t-[16px]">
+						<div
+							class="bg-white rounded-full w-[9px] h-[9px] lg:w-[12px] lg:h-[12px] duration-500 transition-all hover:bg-[#FF605C]"
+						></div>
+						<div
+							class="bg-white rounded-full w-[9px] h-[9px] lg:w-[12px] lg:h-[12px] duration-500 transition-all hover:bg-[#FFBD44]"
+						></div>
+						<div
+							class="bg-white rounded-full w-[9px] h-[9px] lg:w-[12px] lg:h-[12px] duration-500 transition-all hover:bg-[#00CA4E]"
+						></div>
+					</div>
+					<div class="bg-white rounded-b-[10px] lg:rounded-b-[16px] p-6 ">
+						<p>Please check your inbox for a verification email.</p>
+					</div>
+				</div>
+			</div>
+		</div>
+	}
+}

@@ -1,12 +1,14 @@
 package home
 
-import "neurokin/views/layouts"
-import "neurokin/views/shared"
+import (
+	"neurokin/views/layouts"
+	"neurokin/views/shared"
+)
 
 templ Index() {
 	@layouts.Fullheight() {
-    @Section1()
-    @Section2()
-    @shared.General("test", "test", "test", "test", "test", "ltr", "green-500")
+		@Section1()
+		@Section2()
+		@shared.General("test BUMBLEBEE", "test", "test", "test", "test", "ltr", "green-500")
 	}
 }

@@ -3,88 +3,97 @@ package home
 import "neurokin/views/shared"
 
 templ Section2() {
-<div
-  class="min-h-screen overflow-hidden flex flex-col items-center justify-center bg-white xl:min-h-[753px] max-h-[753px]">
-  <div class="h-[115px] w-full hidden md:flex"></div>
-  <div class="container px-8 xl:w-[70%] flex flex-col lg:flex-row justify-between items-center max-h-[638px]">
-    @shared.Article("About & Philosophy",
-    "Neurokin is for you",
-    "Welcome to Neurokin, a platform committed to creating a safer and more inclusive space for underrepresented folks of color to bridge the gap to ADHD/Autilg diagnosis.",
-    "Join the waitlist",
-    "/waitlist",
-    "ltr",
-    )
-    <!-- Splide Container with Dummy Data -->
-    <div class="mt-8 lg:mt-0  max-h-[638px]">
-      <div id="splide" class="splide px-2.5 max-h-[638px]">
-        <div class="splide__track flex lg:block">
-          <ul class="splide__list flex lg:block">
-            <!-- Tile 1 -->
-            <li class="splide__slide">
-              <div
-                class="flex flex-col bg-black rounded-[8px] scale-[80%] lg:scale-100 max-w-[353px] min-w-[353px] max-h-[194px] relative mb-16 mx-auto lg:ml-32">
-                <div
-                  class="rounded-[8px] top-0 left-0 px-7 border-[2px] py-6 translate-x-[10px] -translate-y-[10px] max-w-[353px] max-h-[194px] bg-pink-500">
-                  <h3 class="text-[30px] font-degular-display font-semibold leading-none mb-5">
-                    01-Title 1
-                  </h3>
-                  <p class="font-anek text-[1rem] leading-[22px]">
-                    Description for tile 1.
-                  </p>
-                </div>
-              </div>
-            </li>
-            <!-- Tile 2 -->
-            <li class="splide__slide">
-              <div
-                class="flex flex-col bg-black rounded-[8px] scale-[80%] lg:scale-100 max-w-[353px] min-w-[353px] max-h-[194px] relative mt-16 mb-16 lg:mt-0 mx-auto lg:mr-auto">
-                <div
-                  class="rounded-[8px] top-0 left-0 px-7 border-[2px] py-6 translate-x-[10px] -translate-y-[10px] max-w-[353px] max-h-[194px] bg-green-500">
-                  <h3 class="text-[30px] font-degular-display font-semibold leading-none mb-5">
-                    02-Title 2
-                  </h3>
-                  <p class="font-anek text-[1rem] leading-[22px]">
-                    Description for tile 2.
-                  </p>
-                </div>
-              </div>
-            </li>
-            <!-- Tile 3 -->
-            <li class="splide__slide">
-              <div
-                class="flex flex-col bg-black rounded-[8px] scale-[80%] lg:scale-100 max-w-[353px] min-w-[353px] max-h-[194px] relative mb-16 mx-auto lg:ml-32">
-                <div
-                  class="rounded-[8px] top-0 left-0 px-7 border-[2px] py-6 translate-x-[10px] -translate-y-[10px] max-w-[353px] max-h-[194px] bg-pink-500">
-                  <h3 class="text-[30px] font-degular-display font-semibold leading-none mb-5">
-                    03-Title 3
-                  </h3>
-                  <p class="font-anek text-[1rem] leading-[22px]">
-                    Description for tile 3.
-                  </p>
-                </div>
-              </div>
-            </li>
-            <li class="splide__slide">
-              <div
-                class="flex flex-col bg-black rounded-[8px] scale-[80%] lg:scale-100 max-w-[353px] min-w-[353px] max-h-[194px] relative mt-16 mb-16 lg:mt-0 mx-auto lg:mr-auto">
-                <div
-                  class="rounded-[8px] top-0 left-0 px-7 border-[2px] py-6 translate-x-[10px] -translate-y-[10px] max-w-[353px] max-h-[194px] bg-green-500">
-                  <h3 class="text-[30px] font-degular-display font-semibold leading-none mb-5">
-                    04-Title 4
-                  </h3>
-                  <p class="font-anek text-[1rem] leading-[22px]">
-                    Description for tile 4.
-                  </p>
-                </div>
-              </div>
-            </li>
-          </ul>
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
-<script>
+	<div
+		class="min-h-screen overflow-hidden flex flex-col items-center justify-center bg-white xl:min-h-[753px] max-h-[753px]"
+	>
+		<div class="h-[115px] w-full hidden md:flex"></div>
+		<div class="container px-8 xl:w-[70%] flex flex-col lg:flex-row justify-between items-center max-h-[638px]">
+			@shared.Article("About & Philosophy",
+				"Neurokin is for you",
+				"Welcome to Neurokin, a platform committed to creating a safer and more inclusive space for underrepresented folks of color to bridge the gap to ADHD/Autilg diagnosis.",
+				"Join the waitlist",
+				"/waitlist",
+				"ltr",
+			)
+			<!-- Splide Container with Dummy Data -->
+			<div class="mt-8 lg:mt-0  max-h-[638px]">
+				<div id="splide" class="splide px-2.5 max-h-[638px]">
+					<div class="splide__track flex lg:block">
+						<ul class="splide__list flex lg:block">
+							<!-- Tile 1 -->
+							<li class="splide__slide">
+								<div
+									class="flex flex-col bg-black rounded-[8px] scale-[80%] lg:scale-100 max-w-[353px] min-w-[353px] max-h-[194px] relative mb-16 mx-auto lg:ml-32"
+								>
+									<div
+										class="rounded-[8px] top-0 left-0 px-7 border-[2px] py-6 translate-x-[10px] -translate-y-[10px] max-w-[353px] max-h-[194px] bg-pink-500"
+									>
+										<h3 class="text-[30px] font-degular-display font-semibold leading-none mb-5">
+											01-Title 1
+										</h3>
+										<p class="font-anek text-[1rem] leading-[22px]">
+											Description for tile 1.
+										</p>
+									</div>
+								</div>
+							</li>
+							<!-- Tile 2 -->
+							<li class="splide__slide">
+								<div
+									class="flex flex-col bg-black rounded-[8px] scale-[80%] lg:scale-100 max-w-[353px] min-w-[353px] max-h-[194px] relative mt-16 mb-16 lg:mt-0 mx-auto lg:mr-auto"
+								>
+									<div
+										class="rounded-[8px] top-0 left-0 px-7 border-[2px] py-6 translate-x-[10px] -translate-y-[10px] max-w-[353px] max-h-[194px] bg-green-500"
+									>
+										<h3 class="text-[30px] font-degular-display font-semibold leading-none mb-5">
+											02-Title 2
+										</h3>
+										<p class="font-anek text-[1rem] leading-[22px]">
+											Description for tile 2.
+										</p>
+									</div>
+								</div>
+							</li>
+							<!-- Tile 3 -->
+							<li class="splide__slide">
+								<div
+									class="flex flex-col bg-black rounded-[8px] scale-[80%] lg:scale-100 max-w-[353px] min-w-[353px] max-h-[194px] relative mb-16 mx-auto lg:ml-32"
+								>
+									<div
+										class="rounded-[8px] top-0 left-0 px-7 border-[2px] py-6 translate-x-[10px] -translate-y-[10px] max-w-[353px] max-h-[194px] bg-pink-500"
+									>
+										<h3 class="text-[30px] font-degular-display font-semibold leading-none mb-5">
+											03-Title 3
+										</h3>
+										<p class="font-anek text-[1rem] leading-[22px]">
+											Description for tile 3.
+										</p>
+									</div>
+								</div>
+							</li>
+							<li class="splide__slide">
+								<div
+									class="flex flex-col bg-black rounded-[8px] scale-[80%] lg:scale-100 max-w-[353px] min-w-[353px] max-h-[194px] relative mt-16 mb-16 lg:mt-0 mx-auto lg:mr-auto"
+								>
+									<div
+										class="rounded-[8px] top-0 left-0 px-7 border-[2px] py-6 translate-x-[10px] -translate-y-[10px] max-w-[353px] max-h-[194px] bg-green-500"
+									>
+										<h3 class="text-[30px] font-degular-display font-semibold leading-none mb-5">
+											04-Title 4
+										</h3>
+										<p class="font-anek text-[1rem] leading-[22px]">
+											Description for tile 4.
+										</p>
+									</div>
+								</div>
+							</li>
+						</ul>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<script>
   document.addEventListener('DOMContentLoaded', function () {
     var splide = new Splide('#splide', {
       type: 'loop',

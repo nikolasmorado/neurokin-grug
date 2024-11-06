@@ -8,8 +8,10 @@ package home
 import "github.com/a-h/templ"
 import templruntime "github.com/a-h/templ/runtime"
 
-import "neurokin/views/layouts"
-import "neurokin/views/shared"
+import (
+	"neurokin/views/layouts"
+	"neurokin/views/shared"
+)
 
 func Index() templ.Component {
 	return templruntime.GeneratedTemplate(func(templ_7745c5c3_Input templruntime.GeneratedComponentInput) (templ_7745c5c3_Err error) {
@@ -60,7 +62,7 @@ func Index() templ.Component {
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
-			templ_7745c5c3_Err = shared.General("test", "test", "test", "test", "test", "ltr", "green-500").Render(ctx, templ_7745c5c3_Buffer)
+			templ_7745c5c3_Err = shared.General("test BUMBLEBEE", "test", "test", "test", "test", "ltr", "green-500").Render(ctx, templ_7745c5c3_Buffer)
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}

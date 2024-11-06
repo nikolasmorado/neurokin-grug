@@ -1,20 +1,19 @@
 package shared
 
 templ Input(i string, t string, l string, r string) {
-  <div class="w-full ">
-    <label
-      for={i}
-      class="block text-sm font-medium text-gray-700"
-    >
-      { l }
-    </label>
-
-    <input
-      type={t}
-      name={i}
-      id={i}
+	<div class="w-full ">
+		<label
+			for={ i }
+			class="block text-sm font-medium text-gray-700"
+		>
+			{ l }
+		</label>
+		<input
+			type={ t }
+			name={ i }
+			id={ i }
 			class="mt-1 block w-full px-3 py-2 border border-black bg-pink-500 bg-opacity-[0.11] rounded-md shadow-sm focus:outline-none sm:text-sm transition-all hover:shadow-lg hover:bg-opacity-[0.33] active:bg-opacity-[0.33] focus:bg-opacity-[0.33] "
-      required={r}
-    />
-  </div>
+			required={ r }
+		/>
+	</div>
 }

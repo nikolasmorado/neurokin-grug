@@ -7,9 +7,9 @@ templ Meta(n, s, b string, d bool) {
 		</h1>
 		<div class="w-full flex flex-row items-end justify-end">
 			if d {
-        <a href="/dashboard" class="text-black text-[12px] opacity-75 mt-8 font-inter text-right">
-          { b }
-        </a>
+				<a href="/dashboard" class="text-black text-[12px] opacity-75 mt-8 font-inter text-right">
+					{ b }
+				</a>
 			} else {
 				<button
 					hx-post={ "/quiz/" + s }

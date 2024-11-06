@@ -4,6 +4,9 @@ build:
 run: build
 	@./bin/app
 
+templ:
+	templ generate 
+
 css:
 	tailwindcss -i views/css/app.css -o public/styles.css --minify --watch
 
