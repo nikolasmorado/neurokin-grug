@@ -1,0 +1,19 @@
+package shared
+
+templ Article(s, t, d, c, l, o string) {
+	<article class={ templ.KV("text-left", o == "ltr"), templ.KV("text-right", o == "rtl"), "max-w-[420px] lg:min-w-[420px] w-full pb-[64px] lg:pb-0 text-black text-[1rem] h-fit"}>
+		<h3>{ s }</h3>
+		<h1 class="font-semibold text-[36px] xl:text-[64px] leading-none mb-3 xl:mb-7">
+			{ t }
+		</h1>
+		<p class="font-anek max-h-[140px] leading-[22px] mb-5">
+			{ d }
+		</p>
+		<a
+			href={ templ.SafeURL(l) }
+			class="px-5 py-1 pb-2 text-center bg-black text-white text-base rounded-[4px] leading-none font-degular-text"
+		>
+			{ c }
+		</a>
+	</article>
+}

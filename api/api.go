@@ -38,6 +38,7 @@ func (s *Server) Start() error {
 
 	router.HandleFunc("/login", h.Make(h.HandleLogin(deps)))
 	router.HandleFunc("/signup", h.Make(h.HandleSignup(deps)))
+  router.HandleFunc("/logout", h.Make(h.HandleLogout()))
 
 	router.HandleFunc("/dashboard", a.WithJWT(h.Make(h.HandleDashboard), s.store))
 

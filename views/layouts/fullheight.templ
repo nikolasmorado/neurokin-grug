@@ -1,0 +1,25 @@
+package layouts
+
+import (
+	"neurokin/views/components"
+)
+
+templ Fullheight() {
+	<!DOCTYPE html>
+	<html lang="en">
+		<head>
+			<title>Neurokin</title>
+			<meta charset="utf-8"/>
+			<meta name="viewport" content="width=device-width, initial-scale=1"/>
+			<link rel="stylesheet" href="/public/styles.css"/>
+			<script src="/public/htmx.min.js"></script>
+      <script src="/public/splide.min.js"></script>
+      <script src="/public/splide-extension-auto-scroll.min.js"></script>
+		</head>
+		<body class="antialiased min-h-screen flex flex-col">
+			@components.Navbar()
+			{ children... }
+		</body>
+	</html>
+}
+

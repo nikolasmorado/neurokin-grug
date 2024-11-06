@@ -5,6 +5,8 @@ module.exports = {
     extend: {
       fontFamily: {
         "inter": ["Inter", "sans-serif"],
+        "display": ["degular-display", "sans-serif"],
+        "text": ["degular-text", "sans-serif"],
         "anek": ["Anek Bangla", "sans-serif"],
       },
     },

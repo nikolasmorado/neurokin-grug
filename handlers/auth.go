@@ -40,6 +40,17 @@ func HandleSignup(deps *u.HandlerDependencies) t.HTTPHandler {
 	}
 }
 
+func HandleLogout() t.HTTPHandler {
+	return func(w http.ResponseWriter, r *http.Request) error {
+		switch r.Method {
+		case "POST":
+			return logout(w, r)
+		default:
+			return logout(w, r)
+		}
+	}
+}
+
 func login(w http.ResponseWriter, r *http.Request, s t.Storage) error {
 	email := r.FormValue("email")
 	password := r.FormValue("password")
@@ -57,11 +68,11 @@ func login(w http.ResponseWriter, r *http.Request, s t.Storage) error {
 	}
 
 	http.SetCookie(w, &http.Cookie{
-		Name:     "Authorization",
-		Value:    res,
-		Path:     "/",
-		HttpOnly: true,
-    Expires:  time.Now().Add(24 * time.Hour),
+		Name:  "Authorization",
+		Value: res,
+		Path:  "/",
+		// HttpOnly: true,
+		Expires: time.Now().Add(24 * time.Hour),
 	})
 
 	w.WriteHeader(http.StatusOK)
@@ -93,6 +104,21 @@ func register(w http.ResponseWriter, r *http.Request, s t.Storage) error {
 		}
 		return err
 	}
+
+	w.WriteHeader(http.StatusOK)
+	return nil
+}
+
+func logout(w http.ResponseWriter, r *http.Request) error {
+	// Clear the Authorization cookie
+	http.SetCookie(w, &http.Cookie{
+		Name:     "Authorization",
+		Value:    "",
+		Path:     "/",
+		Expires:  time.Unix(0, 0), // Set expiration time to the past
+		MaxAge:   -1,              // Set MaxAge to -1 to indicate immediate deletion
+		HttpOnly: true,
+	})
 
 	w.WriteHeader(http.StatusOK)
 	return nil

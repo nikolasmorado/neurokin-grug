@@ -2,16 +2,16 @@ package components
 
 templ Navbar() {
 	<nav
-		class="w-full flex justify-between items-center px-9 py-0 sm:py-0 border-pink-700 border-b-[3px] sm:border-b-[10px]"
+		class="w-full flex justify-between items-center px-9 py-0 sm:py-0 border-pink-700 border-b-[3px] sm:border-b-[10px] fixed bg-white z-10"
 	>
-    <a href="/">
-      <img src="/public/images/text_logo.png" alt="Text logo - Neurokin" width="170" height="70" class="mt-4 sm:mt-0"/>
-    </a>
-		<menu class="text-pink-700 text-lg gap-x-11 sm:flex items-center hidden">
+		<a href="/">
+			<img src="/public/images/text_logo.png" alt="Text logo - Neurokin" width="170" height="70" class="mt-4 sm:mt-0"/>
+		</a>
+		<menu id="menu" class="text-pink-700 text-lg gap-x-11 sm:flex items-center hidden">
 			<a href="/about">About</a>
 			<a href="/pricing">Pricing</a>
-			<a href="/login">Login</a>
-			<a href="/signup" class="bg-pink-700 text-white px-4 py-2 rounded-lg">
+			<a id="login-link" href="/login">Login</a>
+			<a id="auth-link" href="/signup" class="bg-pink-700 text-white px-4 py-2 rounded-lg">
 				Sign Up
 			</a>
 		</menu>
@@ -25,4 +25,41 @@ templ Navbar() {
 			</button>
 		</div>
 	</nav>
+	<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    const loginLink = document.getElementById("login-link");
+    const authLink = document.getElementById("auth-link");
+    const menu = document.getElementById("menu");
+
+    // Check if the Authorization cookie exists and is not expired
+    const isAuthorized = document.cookie.split("; ").some((cookie) => cookie.startsWith("Authorization="));
+
+    if (isAuthorized) {
+      loginLink.classList.add("hidden")
+      authLink.textContent = "Logout";
+      authLink.href = "/"; // Redirect to home page after logout
+      authLink.classList.remove("bg-pink-700", "text-white", "px-4", "py-2", "rounded-lg");
+      authLink.classList.add("text-pink-700");
+
+      authLink.addEventListener("click", async function (event) {
+        event.preventDefault(); // Prevent default navigation
+
+        try {
+          // Send a request to the /logout endpoint
+          await fetch('/logout', {method: 'POST', credentials: 'same-origin'});
+
+          // Clear the Authorization cookie (if server doesn't do it automatically)
+          document.cookie = "Authorization=; Max-Age=0; path=/;";
+
+          // Navigate to the home page after logout
+          window.location.href = "/";
+        } catch (error) {
+          console.error("Logout failed:", error);
+        }
+      });
+    } else {
+      loginLink.classList.remove("hidden")
+    }
+  });
+</script>
 }
