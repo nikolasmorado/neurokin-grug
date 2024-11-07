@@ -1,0 +1,51 @@
+name: Export Supabase Tables to JSON
+
+on:
+  schedule:
+    - cron: "0 0 * * *"  # Runs daily at midnight; adjust as needed
+  workflow_dispatch:  # Allows manual triggering
+
+jobs:
+  export_tables:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Check out the repository
+      uses: actions/checkout@v3
+
+    - name: Fetch data from Supabase and convert to JSON
+      env:
+        SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
+        SUPABASE_API_KEY: ${{ secrets.SUPABASE_API_KEY }}
+      run: |
+        # Define table names and their corresponding JSON output files
+        declare -A tables=(
+          ["about_sections"]="about_sections.json"
+          ["homepage_sections"]="homepage_sections.json"
+          ["homepage_tiles"]="homepage_tiles.json"
+        )
+
+        # Loop through each table and fetch its data
+        for table in "${!tables[@]}"; do
+          output_file=${tables[$table]}
+          
+          # Fetch data for the current table
+          echo "Exporting $table to $output_file"
+          curl -s "${SUPABASE_URL}/rest/v1/$table" \
+            -H "apikey: ${SUPABASE_API_KEY}" \
+            -H "Authorization: Bearer ${SUPABASE_API_KEY}" \
+            -H "Content-Type: application/json" \
+            -o $output_file
+
+          # Optional: format the JSON
+          jq '.' $output_file > formatted_$output_file
+          mv formatted_$output_file $output_file
+        done
+
+    - name: Commit and push JSON files to the repository
+      run: |
+        git config --local user.name "github-actions[bot]"
+        git config --local user.email "github-actions[bot]@users.noreply.github.com"
+        git add *.json
+        git commit -m "Automated JSON export from Supabase"
+        git push
+
