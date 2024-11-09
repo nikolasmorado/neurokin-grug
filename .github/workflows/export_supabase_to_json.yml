@@ -25,6 +25,7 @@ jobs:
           ["homepage_sections"]="homepage_sections.json"
           ["homepage_tiles"]="homepage_tiles.json"
           ["quizzes"]="quizzes.json"
+          ["tasks"]="tasks.json"
           ["quiz_questions"]="quiz_questions.json"
         )
 
