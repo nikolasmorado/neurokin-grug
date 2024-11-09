@@ -89,3 +89,13 @@ type Tile struct {
 	Title     string    `json:"title"`
 	Content   string    `json:"content"`
 }
+
+type Task struct {
+	Id          int       `json:"id"`
+	CreatedAt   time.Time `json:"created_at"`
+	Slug        string    `json:"slug"`
+	Type        string    `json:"type"`
+	Name        string    `json:"name"`
+	Description string    `json:"description"`
+	Eta         string    `json:"eta"`
+}
