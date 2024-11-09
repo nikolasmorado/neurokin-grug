@@ -1,13 +1,17 @@
 package shared
 
-templ General(s, t, d, c, l, o, b string) {
+import (
+  t "neurokin/types"
+)
+
+templ General(s, t, d, c, l, b, i string, o t.Orientation) {
 	<section
 		class={ "bg-"+b, "min-h-screen overflow-hidden flex flex-col items-center justify-center xl:min-h-[753px] max-h-[753px]" }
 	>
 		<div class="h-[115px] w-full hidden md:flex"></div>
 		<div class={ templ.KV("lg:flex-row", o == "ltr"), templ.KV("lg:flex-row-reverse", o == "rtl"), "container px-8 xl:w-[70%] flex flex-col justify-between items-center max-h-[638px]" }>
 			@Article(s, t, d, c, l, "ltr")
-			<image src="/public/images/girl-yellow.png" class="lg:max-w-[50%]"></image>
+			<image src={ i } class="lg:max-w-[50%] lg:max-h-[274px] overflow-hidden object-cover rounded-lg lg:w-full"></image>
 		</div>
 	</section>
 }

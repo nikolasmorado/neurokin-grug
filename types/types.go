@@ -51,8 +51,8 @@ const (
 type QuizQuestion struct {
 	Question string       `json:"question"`
 	Answers  []string     `json:"answers"`
-	Id       string       `json:"question_id"`
-	Type     QuestionType `json:"type,omitempty"`
+	Id       string       `json:"id"`
+	Type     QuestionType `json:"type"`
 }
 
 type QuizAnswer struct {
@@ -106,19 +106,13 @@ type Tile struct {
 	Content   string    `json:"content"`
 }
 
-type TaskType string
-
-const (
-	TTypeQuiz TaskType = "quiz"
-	TTypeTask TaskType = "task"
-)
-
 type Task struct {
 	Id          int       `json:"id"`
 	CreatedAt   time.Time `json:"created_at"`
 	Slug        string    `json:"slug"`
-	Type        TaskType  `json:"type"`
+	Type        string    `json:"type"`
 	Name        string    `json:"name"`
 	Description string    `json:"description"`
 	Eta         string    `json:"eta"`
+	Prereqs     []string  `json:"prereqs"`
 }
