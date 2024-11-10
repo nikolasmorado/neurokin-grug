@@ -1,11 +1,12 @@
 [
   {
     "id": 1,
-    "question": "do you like bunmblebees",
+    "question": "do you like bunmblebees?",
     "type": "mc",
     "answers": [
       "yes",
-      "no"
+      "no",
+      "maybe"
     ],
     "quiz": "sample-quiz"
   }
