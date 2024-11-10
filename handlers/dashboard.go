@@ -10,9 +10,23 @@ import (
 
 	a "neurokin/auth"
 	t "neurokin/types"
+  u "neurokin/util"
 )
 
-func HandleDashboard(w http.ResponseWriter, r *http.Request) error {
+func HandleDashboard(deps *u.HandlerDependencies) t.HTTPHandler {
+  s := deps.Store
+
+  return func(w http.ResponseWriter, r *http.Request) error {
+    switch r.Method {
+      case "GET":
+        return handleDashboard(w, r, s)
+      default:
+        return handleDashboard(w, r, s)
+    }
+  }
+}
+
+func handleDashboard(w http.ResponseWriter, r *http.Request, s t.Storage) error {
   
   aC, err := r.Cookie("Authorization")
 
@@ -28,6 +42,11 @@ func HandleDashboard(w http.ResponseWriter, r *http.Request) error {
     return nil
   }
 
+  acc, err := s.GetAccountByEmail(email)
+
+  if err != nil {
+    http.Redirect(w, r, "/login", http.StatusSeeOther)
+  }
 
   tasksPath, err := filepath.Abs("tasks.json")
   if err != nil {
@@ -40,5 +59,5 @@ func HandleDashboard(w http.ResponseWriter, r *http.Request) error {
     fmt.Errorf("Error loading tasks file")
   }
 
-  return Render(w, r, dashboard.Index(email, tasks))
+  return Render(w, r, dashboard.Index(acc, tasks))
 }

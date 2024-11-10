@@ -38,7 +38,7 @@ type Account struct {
 	CreatedAt time.Time `json:"created_at"`
 	Email     string    `json:"email"`
 	Verified  bool      `json:"verified"`
-	// Phone     string `json:"phone"`
+	Completed []string  `json:"completed"`
 }
 
 type QuestionType string
