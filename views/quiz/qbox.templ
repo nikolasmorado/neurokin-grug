@@ -2,7 +2,7 @@ package quiz
 
 import "strconv"
 
-templ Qbox(q, l, u, s, i string, a []string) {
+templ Qbox(q, l, u, s, i string, a []string, t string) {
 	<form
 		hx-put={ "/quiz/" + s }
 		hx-trigger="submit"
@@ -35,19 +35,42 @@ templ Qbox(q, l, u, s, i string, a []string) {
 			</button>
 		</div>
 		<div class="flex flex-col gap-y-3 pb-7">
-			for i, t := range a {
-				<button
-					type="button"
-					data-index={ strconv.Itoa(i + 1) }
-					class="bg-pink-300 flex px-2 py-[7px] items-center border rounded-[4px] gap-x-2 font-inter w-fit hover:bg-pink-500 transition-all option-btn"
+			if t == "mc" {
+				// Multiple-choice options
+				for i, t := range a {
+					<button
+						type="button"
+						data-index={ strconv.Itoa(i + 1) }
+						class="bg-pink-300 flex px-2 py-[7px] items-center border rounded-[4px] gap-x-2 font-inter w-fit hover:bg-pink-500 transition-all option-btn"
+					>
+						<span class="bg-white border rounded-full w-[20px] h-[20px] flex items-center justify-center">
+							{ strconv.Itoa(i + 1) }
+						</span>
+						<p>{ t }</p>
+					</button>
+				}
+				<input type="hidden" name="selectedOption" id="selectedOption"/>
+			} else if t == "text" {
+				// Text input question
+				<textarea
+					name="textAnswer"
+					id="textAnswer"
+					class="border rounded-[4px] p-2 font-inter w-full"
+					placeholder="Write your answer here..."
+				></textarea>
+			} else if t == "dropdown" {
+				// Dropdown question
+				<select
+					name="selectedOption"
+					id="dropdownSelect"
+					class="border rounded-[4px] p-2 font-inter w-full"
 				>
-					<span class="bg-white border rounded-full w-[20px] h-[20px] flex items-center justify-center">
-						{ strconv.Itoa(i + 1) }
-					</span>
-					<p>{ t }</p>
-				</button>
+					<option value="">Select an option...</option>
+					for i, t := range a {
+						<option value={ strconv.Itoa(i + 1) }>{ t }</option>
+					}
+				</select>
 			}
-			<input type="hidden" name="selectedOption" id="selectedOption"/>
 			<input type="hidden" name="bookmarked" id="bookmarked" value="false"/>
 			<input type="hidden" name="questionId" id="questionId" value={ i }/>
 			<div id="contextBox" class="hidden flex flex-col gap-y-2">
@@ -80,6 +103,9 @@ templ Qbox(q, l, u, s, i string, a []string) {
 	<script>
   function attachEventListeners() {
     const contentBox = document.getElementById('content-box');
+    const skipBtn = document.getElementById('skipBtn');
+    const textAnswer = document.getElementById('textAnswer');
+    const dropdownSelect = document.getElementById('dropdownSelect');
 
     contentBox.querySelectorAll('.option-btn').forEach(button => {
       button.addEventListener('click', function (e) {
@@ -100,6 +126,18 @@ templ Qbox(q, l, u, s, i string, a []string) {
       toggleBookmark();
     });
 
+    if (textAnswer) {
+      textAnswer.addEventListener('input', function () {
+        skipBtn.innerText = textAnswer.value.trim() !== "" ? "Next" : "Skip";
+      });
+    }
+
+    if (dropdownSelect) {
+      dropdownSelect.addEventListener('change', function () {
+        skipBtn.innerText = dropdownSelect.value !== "" ? "Next" : "Skip";
+      });
+    }
+
     document.addEventListener('keydown', function (e) {
       if (e.key >= '1' && e.key <= '4') {
         e.preventDefault();
@@ -110,13 +148,11 @@ templ Qbox(q, l, u, s, i string, a []string) {
         }
       } else if (e.key === 'Enter') {
         e.preventDefault();
-         if (selectedOption) {
-            const skipBtn = document.getElementById('skipBtn');
-            skipBtn.click(); 
+        if ((textAnswer && textAnswer.value.trim() !== "") || (dropdownSelect && dropdownSelect.value !== "")) {
+          skipBtn.click();
         } else {
-            document.getElementById('content-box').dispatchEvent(new Event('submit', { bubbles: true, cancelable: true }));
+          contentBox.dispatchEvent(new Event('submit', { bubbles: true, cancelable: true }));
         }
-
       }
     });
   }
@@ -130,27 +166,17 @@ templ Qbox(q, l, u, s, i string, a []string) {
   }
 
   function toggleContextBox() {
-    var contextBox = document.getElementById('contextBox');
-    var ctxBtn = document.getElementById('addContextBtn');
-    if (contextBox.classList.contains('hidden')) {
-      ctxBtn.innerText = "Hide";
-      contextBox.classList.remove('hidden');
-    } else {
-      ctxBtn.innerText = "Add additional context";
-      contextBox.classList.add('hidden');
-    }
+    const contextBox = document.getElementById('contextBox');
+    const ctxBtn = document.getElementById('addContextBtn');
+    ctxBtn.innerText = contextBox.classList.toggle('hidden') ? "Add additional context" : "Hide";
   }
 
   function toggleBookmark() {
-    var bookmark = document.getElementById('bookmark-svg');
-    var bookmarkState = document.getElementById('bookmarked');
-    if (bookmark.getAttribute('fill') === 'none') {
-      bookmark.setAttribute('fill', '#F5A6D5');
-      bookmarkState.value = "true";
-    } else {
-      bookmark.setAttribute('fill', 'none');
-      bookmarkState.value = "false";
-    }
+    const bookmark = document.getElementById('bookmark-svg');
+    const bookmarkState = document.getElementById('bookmarked');
+    const filled = bookmark.getAttribute('fill') === 'none';
+    bookmark.setAttribute('fill', filled ? '#F5A6D5' : 'none');
+    bookmarkState.value = filled ? "true" : "false";
   }
 
   document.addEventListener('htmx:afterSwap', function (event) {
@@ -162,3 +188,4 @@ templ Qbox(q, l, u, s, i string, a []string) {
   attachEventListeners();
 </script>
 }
+

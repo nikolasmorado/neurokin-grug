@@ -86,12 +86,12 @@ func RenderQuizSlug(w http.ResponseWriter, r *http.Request, s t.Storage) error {
 				return err
 			}
 
-      return Render(w, r, quiz.Question(
-        qz.Name,
-        qz.Slug,
-        "Return to Dashboard ->",
-        true,
-      ))
+			return Render(w, r, quiz.Question(
+				qz.Name,
+				qz.Slug,
+				"Return to Dashboard ->",
+				true,
+			))
 		}
 
 		for i, a := range qz.Questions {
@@ -103,6 +103,7 @@ func RenderQuizSlug(w http.ResponseWriter, r *http.Request, s t.Storage) error {
 					qz.Slug,
 					a.Id,
 					a.Answers,
+          string(a.Type),
 				))
 			}
 		}
@@ -115,6 +116,7 @@ func RenderQuizSlug(w http.ResponseWriter, r *http.Request, s t.Storage) error {
 		qz.Slug,
 		qz.Questions[qIdx].Id,
 		qz.Questions[qIdx].Answers,
+    string(qz.Questions[qIdx].Type),
 	))
 }
 
@@ -148,6 +150,7 @@ func StartQuiz(w http.ResponseWriter, r *http.Request, s t.Storage) error {
 		qz.Slug,
 		qz.Questions[0].Id,
 		qz.Questions[0].Answers,
+		string(qz.Questions[0].Type),
 	))
 }
 
@@ -174,6 +177,7 @@ func ProgressQuiz(w http.ResponseWriter, r *http.Request, s t.Storage) error {
 		return err
 	}
 
+	// Start quiz if no quiz answer exists
 	if qa == nil {
 		return Render(w, r, quiz.Qbox(
 			qz.Questions[0].Question,
@@ -182,21 +186,23 @@ func ProgressQuiz(w http.ResponseWriter, r *http.Request, s t.Storage) error {
 			qz.Slug,
 			qz.Questions[0].Id,
 			qz.Questions[0].Answers,
+      string(qz.Questions[0].Type),
 		))
 	}
 
+	// Retrieve form values
 	selectedOption := r.FormValue("selectedOption")
 	additionalContext := r.FormValue("additionalContext")
 	bookmarked := r.FormValue("bookmarked") == "true"
 	pQIdx := r.FormValue("questionId")
 
-	// Use a map for faster lookups and replacement of existing answers
+	// Use a map for faster lookups
 	answerMap := make(map[string]*t.Answer)
 	for i := range qa.DecodedAnswers {
 		answerMap[qa.DecodedAnswers[i].QuestionId] = &qa.DecodedAnswers[i]
 	}
 
-	// Replace or add the answer
+	// Update or add the answer
 	if answer, exists := answerMap[pQIdx]; exists {
 		answer.Answer = selectedOption
 		answer.Context = additionalContext
@@ -210,22 +216,25 @@ func ProgressQuiz(w http.ResponseWriter, r *http.Request, s t.Storage) error {
 		})
 	}
 
+	// Update the quiz answer in storage
 	err = s.UpdateQuizAnswer(qa)
 	if err != nil {
 		return err
 	}
 
+	// Check if all questions have been answered
 	seenAll := len(qa.DecodedAnswers) >= len(qz.Questions)
 
 	if seenAll {
+		// Check for any bookmarked or unanswered questions
 		bqns := make(map[string]t.Answer)
-
 		for _, a := range qa.DecodedAnswers {
 			if a.Bookmarked || a.Answer == "" {
 				bqns[a.QuestionId] = a
 			}
 		}
 
+		// If no bookmarked/unanswered questions, mark as completed and return to dashboard
 		if len(bqns) == 0 {
 			qa.Completed = true
 			err = s.UpdateQuizAnswer(qa)
@@ -233,14 +242,16 @@ func ProgressQuiz(w http.ResponseWriter, r *http.Request, s t.Storage) error {
 				return err
 			}
 
+			// Render completion message
 			return Render(w, r, quiz.Meta(
 				qz.Name,
 				qz.Slug,
-				"Return to Dashboard ->",
+				"Quiz Completed! Return to Dashboard ->",
 				true,
 			))
 		}
 
+		// Render the next bookmarked question if any
 		for i, a := range qz.Questions {
 			if _, exists := bqns[a.Id]; exists {
 				return Render(w, r, quiz.Qbox(
@@ -250,6 +261,7 @@ func ProgressQuiz(w http.ResponseWriter, r *http.Request, s t.Storage) error {
 					qz.Slug,
 					a.Id,
 					a.Answers,
+          string(a.Type),
 				))
 			}
 		}
@@ -257,6 +269,7 @@ func ProgressQuiz(w http.ResponseWriter, r *http.Request, s t.Storage) error {
 		return nil
 	}
 
+	// Render the next question
 	qIdx := len(qa.DecodedAnswers)
 	return Render(w, r, quiz.Qbox(
 		qz.Questions[qIdx].Question,
@@ -265,6 +278,6 @@ func ProgressQuiz(w http.ResponseWriter, r *http.Request, s t.Storage) error {
 		qz.Slug,
 		qz.Questions[qIdx].Id,
 		qz.Questions[qIdx].Answers,
+		string(qz.Questions[qIdx].Type),
 	))
 }
-

@@ -46,6 +46,7 @@ type QuestionType string
 const (
 	QTypeMultipleChoice QuestionType = "mc"
 	QTypeText           QuestionType = "text"
+	QTypeDropdown       QuestionType = "dropdown"
 )
 
 type QuizQuestion struct {
